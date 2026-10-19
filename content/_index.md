@@ -1,29 +1,26 @@
 ---
-title: "Fortinet TECWorkshop Template - MVP2"
-linkTitle: "TECWorkshop Template"
+title: "Isolated Customer Traffic Across Two FortiGate FGCP HA Pairs in AWS"
+linkTitle: "HA Demo Environment"
 weight: 1
 archetype: "home"
-description: "Hugo for Fortinet TEC Workshops"
+description: "Two FortiGate FGCP HA pairs, TGW Connect (GRE) to the spokes, and per-customer GRE tunnels inside an IPsec tunnel between the sites"
 ---
 
+<!-- TODO: replace with Lucidchart export (full design, both sites): demo-design.png -->
+```
+        Site A                                                              Site B
+ ┌───────────────────────────────┐                          ┌───────────────────────────────┐
+ │ east VPC ─┐                   │                          │                   ┌─ east VPC │
+ │           ├─ TGW ══GRE══ FGCP │═══ IPsec ═══ GRE-x ═════│ FGCP ══GRE══ TGW ─┤           │
+ │ west VPC ─┘  (Connect)   pair │  (gre-east-x, gre-west-x)│ pair  (Connect)   └─ west VPC │
+ └───────────────────────────────┘                          └───────────────────────────────┘
+                 │ port4 (multi-VPC ENI, no EIP)                 │ port4 (multi-VPC ENI, no EIP)
+                 └──────────────┐                 ┌──────────────┘
+                         Management VPC: FortiManager + FortiAnalyzer
+```
 
-THIS IS A TEST
+This documentation describes the **demo-ha-env** demo: a Terraform-built design in which two customers (**east** and **west**)
+share one pair of FortiGates at each of two sites, yet their traffic stays separate end to end. Each customer has its own
+GRE tunnel to the Transit Gateway and its own GRE tunnel, carried inside an IPsec tunnel, to the other site.
 
-
-
-### {{% badge style="info" color="red" icon="fa-fw fas fa-exclamation-triangle" title=" " %}}Change{{% /badge %}} FYI, YOU WILL NOW NEED TO CHECKIN WITH YOUR EMAIL ADDRESS TO VIEW THIS GUIDE
-This change helps with analytics and data gathering and is consistent with UserRepo guide (this repo) serving as the root of every new workshop (e.g. this guide is always on latest and greatest featureset which gets cloned into every new workshop)  
-
-This site will explain how to use the [Hugo Web Framework](https://gohugo.io/) & the ["reLearn" Theme](https://mcshelby.github.io/hugo-theme-relearn/index.html) to effectively organize & deliver Fortinet TEC Workshops & Product demos in a consistent, simple, and visually appealing format.
-
-The beauty of this framework lies in its simplicity.  Within approx 30 mins, anybody can have a site up and running.  Content is created via Markdown files, and the workshop guide layout is simply a directory structure.
-
-Follow along on this simple tutorial to get up and running with a Hugo formatted site for your TEC Workshop/training/demo content today!
-
-### Learning Objectives
-- Setup UserRepo on your system & Build container with Hugo & CentralRepo
-- Learn to work in Hugo to create your content to display proper information flow for your TEC Workshop/demo/training
-- Publish your Hugo site to GitHub pages via a CI/CD model 
- 
-### Hugo and Fortinet TECWorkshops - Visually
-- The purpose of this workflow is to simplify creation of Fortinet TECWorkshop guides while providing an example CI/CD development environment with maximum re-usability 
+It also records, in detail, why per-customer **VRFs** were tried and dropped. See [Why Not VRFs](6_why_not_vrfs/).
