@@ -1,0 +1,112 @@
+# Guards the deployment-path invariant: every path-specific instruction lives
+# inside a pathtabs block, and the generated handouts match their source pages.
+#
+# Separate from static.yml on purpose — that file is in the repo template's
+# FILES_TO_COPY, so anything added there is reverted by the next template upgrade.
+name: Path lint
+
+# GitHub Actions does not expand YAML anchors, so the two path lists are
+# duplicated by necessity — keep them in sync.
+on:
+  # No paths: filter on pull_request. If a repo ever makes `lint` a required
+  # status check (ai-101 does, 2026-08-20), a check that never reports because
+  # its own trigger paths: filter skipped the whole workflow blocks merge
+  # *forever*, not just until CI runs -- discovered blocking ai-101's own
+  # docs-only PRs. This job is cheap (no Docker, pure Python), so running it
+  # unconditionally on every PR costs nothing worth filtering for.
+  pull_request: {}
+  # Direct pushes to main skip the pull_request trigger entirely — d512c5c did
+  # exactly that, hand-edited the handouts, and left handout-k8s stale. push:
+  # keeps its paths: filter -- it is not a required-status-check surface, so an
+  # unmatched push simply doesn't run this, which is the desired behaviour there.
+  push:
+    branches: [main]
+    paths:
+      - "content/**"
+      - "layouts/shortcodes/pathtab*.html"
+      - "scripts/gen_handouts.py"
+      - "scripts/lint_paths.py"
+      # gen_handouts.py derives PATHS from deploymentPaths here, and lint_paths.py
+      # imports PATHS from it -- so editing this file changes what the linter
+      # enforces and must trigger it.
+      - "scripts/repoConfig.json"
+      - ".github/workflows/path-lint.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+
+      - name: Regenerate handouts
+        run: python3 scripts/gen_handouts.py
+
+      - name: Check for a diff
+        id: diff
+        run: |
+          if [ -n "$(git status --porcelain -- content/09Reference/handouts)" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Auto-fix needs a push credential GitHub does not recognize as "the workflow
+      # itself" -- a push made with the default GITHUB_TOKEN does not re-trigger this
+      # or any other workflow (GitHub's own recursion guard), so the PR's checks would
+      # stay pinned to the pre-fix commit. HANDOUT_AUTOFIX_PAT is that credential; see
+      # content/02Hugo/7_printable_handouts/index.md for how a repo provisions it.
+      #
+      # UserRepo does not provision this secret -- it ships this file inert, for repos
+      # that opt into deploymentPaths to copy. The guard below is what makes that safe:
+      # with the secret absent, the regenerated files are reverted so the existing
+      # `lint_paths.py` (which shells out to `gen_handouts.py --check`) fails loud on
+      # the real staleness below, instead of a git-auth error or a false-green pass
+      # against files this step already fixed on disk but never pushed.
+      #
+      # SECURITY: the actual push (below) only ever runs for github.event_name
+      # == 'push', never 'pull_request' -- even when HANDOUT_AUTOFIX_PAT is
+      # provisioned. On `pull_request`, the "Regenerate handouts" step above
+      # already executed the PR head's own scripts/gen_handouts.py -- fully
+      # attacker-controlled content on a fork PR. Runner state (global git
+      # config, hooks path, PATH) persists across steps in the same job, so a
+      # step that both ran untrusted code AND had a repo secret in its
+      # environment would let a malicious PR plant something (e.g. a
+      # core.hooksPath pre-push hook) that exfiltrates HANDOUT_AUTOFIX_PAT the
+      # moment a `git push` runs. Note this step's own `if:` above still fires
+      # on `pull_request` (only gated on there being a diff) -- that's
+      # intentional: the revert branch below has to run there too, or the disk
+      # is left holding the fresh regenerated files from the unconditional
+      # "Regenerate handouts" step, `gen_handouts.py --check` compares
+      # fresh-against-fresh, and a genuinely stale PR silently passes lint
+      # instead of failing loud. Net effect: PR-time auto-fix-and-push (the
+      # behavior this mechanism used to provide on every trigger) is gone --
+      # PRs now only get the fail-loud check and must be fixed by hand or by
+      # a maintainer's push to main; auto-fix still self-heals main afterward.
+      - name: Auto-fix stale handouts
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          HANDOUT_AUTOFIX_PAT: ${{ secrets.HANDOUT_AUTOFIX_PAT }}
+        run: |
+          if [ -z "$HANDOUT_AUTOFIX_PAT" ] || [ "${{ github.event_name }}" != "push" ]; then
+            echo "Leaving the stale handouts uncommitted so lint_paths.py fails loud" \
+                 "below. Run 'python3 scripts/gen_handouts.py' locally and commit the" \
+                 "result, or (on a push to main, with HANDOUT_AUTOFIX_PAT provisioned)" \
+                 "let this step auto-fix it there."
+            git checkout -- content/09Reference/handouts
+            git clean -fd -- content/09Reference/handouts
+            exit 0
+          fi
+          git config user.name "handout-autofix[bot]"
+          git config user.email "handout-autofix[bot]@users.noreply.github.com"
+          git add content/09Reference/handouts
+          git commit -m "chore: regenerate stale handouts"
+          git push "https://x-access-token:${HANDOUT_AUTOFIX_PAT}@github.com/${{ github.repository }}.git" "HEAD:${{ github.head_ref || github.ref_name }}"
+
+      - name: Lint deployment paths
+        run: python3 scripts/lint_paths.py
