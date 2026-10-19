@@ -45,9 +45,9 @@ jobs:
       IMAGE: public.ecr.aws/k4n6m5h8/fortinet-hugo:latest
       LOCAL_IMAGE: fortinet-hugo:latest
       # Path prefix the site is built for. Every asset in the rendered HTML is
-      # rooted at /UserRepo/..., so the pages must be served under that prefix or
+      # rooted at /demo-ha-env/..., so the pages must be served under that prefix or
       # the print stylesheet and images do not load.
-      SITE_PREFIX: UserRepo
+      SITE_PREFIX: demo-ha-env
       SERVE_PORT: "8099"
     steps:
       - name: Checkout
