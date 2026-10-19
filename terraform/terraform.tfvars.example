@@ -1,0 +1,91 @@
+aws_region          = "us-west-2"
+availability_zone_1 = "a"
+availability_zone_2 = "b"
+cp                  = "acme"
+env                 = "demo"
+keypair             = "my-keypair"
+management_cidr_sg  = ["203.0.113.10/32"]
+
+# Two sites, non-overlapping /24s. Each site gets an inspection VPC (HA pair), a TGW, and east/west spokes.
+site_a = {
+  inspection_cidr = "10.1.0.0/21"
+  east_cidr       = "10.1.10.0/24"
+  west_cidr       = "10.1.20.0/24"
+  # license_type = "byol": one .lic file per FortiGate, applied by the bootstrap
+  # primary_license_file   = "./licenses/site_a_primary.lic"
+  # secondary_license_file = "./licenses/site_a_secondary.lic"
+  # primary_fortiflex_token   = ""
+  # secondary_fortiflex_token = ""
+}
+site_b = {
+  inspection_cidr = "10.2.0.0/21"
+  east_cidr       = "10.2.10.0/24"
+  west_cidr       = "10.2.20.0/24"
+  # primary_license_file   = "./licenses/site_b_primary.lic"
+  # secondary_license_file = "./licenses/site_b_secondary.lic"
+}
+
+# FortiGate: AMI is looked up by version against the AMI name
+fortigate_instance_type  = "c5n.xlarge"
+fortios_version          = "7.6.7"
+license_type             = "payg" # payg | byol | fortiflex
+enable_fgt_management_eip = true
+
+# Management VPC with FortiManager + FortiAnalyzer (AMIs looked up by version against the AMI name)
+vpc_cidr_management = "10.99.0.0/24"
+
+enable_fortimanager           = true
+enable_fortimanager_public_ip = true
+fortimanager_instance_type    = "m5.xlarge"
+fortimanager_os_version       = "7.6.7"
+fortimanager_host_ip          = 14
+fortimanager_license_file     = "" # "./licenses/fmgr_license.lic" with BYOL
+fortimanager_vm_name          = "fmgr-demo"
+
+enable_fortianalyzer           = true
+enable_fortianalyzer_public_ip = true
+fortianalyzer_instance_type    = "m5.xlarge"
+fortianalyzer_os_version       = "7.6.7"
+fortianalyzer_host_ip          = 13
+fortianalyzer_license_file     = "" # "./licenses/faz_license.lic" with BYOL
+fortianalyzer_vm_name          = "faz-demo"
+
+enable_spoke_instances = true
+spoke_instance_type    = "t3.micro"
+
+# Pinned host numbers for FortiGate port4 (management VPC): [AZ1 primary, AZ2 secondary]. Keep distinct from FMG/FAZ above.
+fortigate_mgmt_host_ips = {
+  site_a = [20, 20]
+  site_b = [21, 21]
+}
+
+# Site A SSH forwards on the cluster EIP: ssh -p <port> ec2-user@<site A cluster EIP>
+ssh_admin_sources = {
+  admin-src = "203.0.113.10/32"
+}
+site_a_ssh_forwards = [
+  { name = "east", port = 2222, spoke = "east" },
+  { name = "west", port = 2223, spoke = "west" },
+]
+
+# Site B SSH forwards on the cluster EIP: ssh -p <port> ec2-user@<site B cluster EIP>
+site_b_ssh_forwards = [
+  { name = "east", port = 2222, spoke = "east" },
+  { name = "west", port = 2223, spoke = "west" },
+]
+
+#--- FortiFlex (tokens are generated and applied after boot by scripts/apply_fortiflex.py) ---------------------
+fortiflex_username = ""
+fortiflex_password = ""
+# entitlement serial numbers: [primary, secondary] per site; FortiManager and FortiAnalyzer use their own entitlements
+fortigate_sns = {
+  site_a = ["", ""]
+  site_b = ["", ""]
+}
+fortimanager_sn  = ""
+fortianalyzer_sn = ""
+
+# one password for every demo secret (FortiGate admin, HA, IPsec PSK, FortiManager, FortiAnalyzer)
+demo_password = "ChangeMe123!"
+# optional per-secret overrides: ipsec_psk, fortigate_admin_password, ha_password,
+# fortimanager_admin_password, fortianalyzer_admin_password

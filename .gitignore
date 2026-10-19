@@ -8,3 +8,27 @@ package.json
 /venv
 fortihugorunner
 .claude/settings.local.json
+
+# Terraform state and local plugin cache
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+*.tfplan
+
+# Secrets and per-environment values (see terraform.tfvars.example)
+terraform.tfvars
+*.auto.tfvars
+licenses/*
+!licenses/.gitkeep
+*.lic
+
+# FortiGate config backups (contain password hashes and encrypted PSKs)
+site_a/
+site_b/
+*.conf
+
+.DS_Store
+.idea/
+__pycache__/
+*.pyc

@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 820" width="2000" height="820" font-family="-apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+<rect width="2000" height="820" fill="#ffffff"/>
+<text x="20" y="28" font-size="20" font-weight="700" text-anchor="start" fill="#0f172a">Two FortiGate FGCP HA pairs joined by IPsec</text>
+<text x="20" y="48" font-size="12" font-weight="400" text-anchor="start" fill="#475569">acme-demo, us-west-2 (us-west-2a, us-west-2b), FortiGate c5n.xlarge (payg), generated 2026-10-16 16:12:52</text>
+<rect x="20" y="70" width="640" height="400" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="32" y="92" font-size="14" font-weight="700" text-anchor="start" fill="#0f172a">Site A inspection VPC  10.1.0.0/21  (vpc-027c67f54990284ca)</text>
+<rect x="34" y="104" width="298" height="354" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.5" stroke-dasharray="5,4"/>
+<text x="44" y="122" font-size="12" font-weight="700" text-anchor="start" fill="#475569">us-west-2a</text>
+<rect x="44" y="132" width="278" height="108" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+<text x="183" y="152" font-size="13" font-weight="700" text-anchor="middle" fill="#0f172a">FortiGate Primary</text>
+<text x="183" y="168" font-size="10" font-weight="400" text-anchor="middle" fill="#475569">i-01c18b0748a51e568</text>
+<text x="54" y="188" font-size="10.5" font-weight="400" text-anchor="start" fill="#0f172a">port1 public   10.1.0.4</text>
+<text x="54" y="203" font-size="10.5" font-weight="400" text-anchor="start" fill="#0f172a">port2 private  gre-east, gre-west to TGW</text>
+<text x="54" y="218" font-size="10.5" font-weight="400" text-anchor="start" fill="#0f172a">port3 heartbeat 10.1.4.4</text>
+<text x="54" y="233" font-size="10.5" font-weight="400" text-anchor="start" fill="#0f172a">port4 HA-mgmt  10.99.0.20  (mgmt VPC)</text>
+<rect x="44" y="252" width="278" height="40" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="54" y="269" font-size="11" font-weight="700" text-anchor="start" fill="#0f172a">public subnet</text>
+<text x="54" y="284" font-size="10.5" font-weight="400" text-anchor="start" fill="#475569">10.1.0.0/27</text>
+<rect x="44" y="300" width="278" height="40" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="54" y="317" font-size="11" font-weight="700" text-anchor="start" fill="#0f172a">private subnet</text>
+<text x="54" y="332" font-size="10.5" font-weight="400" text-anchor="start" fill="#475569">10.1.0.64/27</text>
+<rect x="44" y="348" width="278" height="40" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="54" y="365" font-size="11" font-weight="700" text-anchor="start" fill="#0f172a">ha-sync subnet</text>
+<text x="54" y="380" font-size="10.5" font-weight="400" text-anchor="start" fill="#475569">10.1.0.128/27</text>
+<rect x="44" y="396" width="278" height="40" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="54" y="413" font-size="11" font-weight="700" text-anchor="start" fill="#0f172a">tgw subnet</text>
+<text x="54" y="428" font-size="10.5" font-weight="400" text-anchor="start" fill="#475569">10.1.0.192/27</text>
+<rect x="344" y="104" width="298" height="354" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.5" stroke-dasharray="5,4"/>
+<text x="354" y="122" font-size="12" font-weight="700" text-anchor="start" fill="#475569">us-west-2b</text>
+<rect x="354" y="132" width="278" height="108" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+<text x="493" y="152" font-size="13" font-weight="700" text-anchor="middle" fill="#0f172a">FortiGate Secondary</text>
+<text x="493" y="168" font-size="10" font-weight="400" text-anchor="middle" fill="#475569">i-0f97524ef641ccd92</text>
+<text x="364" y="188" font-size="10.5" font-weight="400" text-anchor="start" fill="#0f172a">port1 public   10.1.1.4</text>
+<text x="364" y="203" font-size="10.5" font-weight="400" text-anchor="start" fill="#0f172a">port2 private  (no GRE; takes over on failover)</text>
+<text x="364" y="218" font-size="10.5" font-weight="400" text-anchor="start" fill="#0f172a">port3 heartbeat 10.1.5.4</text>
+<text x="364" y="233" font-size="10.5" font-weight="400" text-anchor="start" fill="#0f172a">port4 HA-mgmt  10.99.0.84  (mgmt VPC)</text>
+<rect x="354" y="252" width="278" height="40" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="364" y="269" font-size="11" font-weight="700" text-anchor="start" fill="#0f172a">public subnet</text>
+<text x="364" y="284" font-size="10.5" font-weight="400" text-anchor="start" fill="#475569">10.1.0.32/27</text>
+<rect x="354" y="300" width="278" height="40" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="364" y="317" font-size="11" font-weight="700" text-anchor="start" fill="#0f172a">private subnet</text>
+<text x="364" y="332" font-size="10.5" font-weight="400" text-anchor="start" fill="#475569">10.1.0.96/27</text>
+<rect x="354" y="348" width="278" height="40" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="364" y="365" font-size="11" font-weight="700" text-anchor="start" fill="#0f172a">ha-sync subnet</text>
+<text x="364" y="380" font-size="10.5" font-weight="400" text-anchor="start" fill="#475569">10.1.0.160/27</text>
+<rect x="354" y="396" width="278" height="40" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="364" y="413" font-size="11" font-weight="700" text-anchor="start" fill="#0f172a">tgw subnet</text>
+<text x="364" y="428" font-size="10.5" font-weight="400" text-anchor="start" fill="#475569">10.1.0.224/27</text>
+<rect x="20" y="480" width="640" height="30" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="340" y="500" font-size="12" font-weight="700" text-anchor="middle" fill="#0f172a">Cluster EIP 32.187.0.28   (IPsec endpoint, follows the master)</text>
+<rect x="20" y="540" width="640" height="56" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="340" y="563" font-size="13" font-weight="700" text-anchor="middle" fill="#0f172a">Site A Transit Gateway</text>
+<text x="340" y="581" font-size="10.5" font-weight="400" text-anchor="middle" fill="#475569">tgw-0e76bc14f76c9e172   (Connect: GRE + eBGP per spoke to the primary port2; inspection attachment is transport only)</text>
+<rect x="20" y="626" width="310" height="110" rx="6" fill="#f8fafc" stroke="#16a34a" stroke-width="1.5"/>
+<text x="30" y="646" font-size="13" font-weight="700" text-anchor="start" fill="#0f172a">Site A east spoke VPC</text>
+<text x="30" y="663" font-size="10.5" font-weight="400" text-anchor="start" fill="#475569">10.1.10.0/24   vpc-08df36a38a5ea0536</text>
+<text x="30" y="683" font-size="10.5" font-weight="400" text-anchor="start" fill="#0f172a">10.1.10.0/26  AZ1 workload   10.1.10.128/26  AZ1 tgw</text>
+<text x="30" y="698" font-size="10.5" font-weight="400" text-anchor="start" fill="#0f172a">10.1.10.64/26  AZ2 workload   10.1.10.192/26  AZ2 tgw</text>
+<text x="30" y="720" font-size="10.5" font-weight="700" text-anchor="start" fill="#0f172a">test instance  10.1.10.132</text>
+<line x1="175" y1="626" x2="340" y2="596" stroke="#d97706" stroke-width="2"/>
+<rect x="350" y="626" width="310" height="110" rx="6" fill="#f8fafc" stroke="#16a34a" stroke-width="1.5"/>
+<text x="360" y="646" font-size="13" font-weight="700" text-anchor="start" fill="#0f172a">Site A west spoke VPC</text>
+<text x="360" y="663" font-size="10.5" font-weight="400" text-anchor="start" fill="#475569">10.1.20.0/24   vpc-0c6d111ea62a902d3</text>
+<text x="360" y="683" font-size="10.5" font-weight="400" text-anchor="start" fill="#0f172a">10.1.20.0/26  AZ1 workload   10.1.20.128/26  AZ1 tgw</text>
+<text x="360" y="698" font-size="10.5" font-weight="400" text-anchor="start" fill="#0f172a">10.1.20.64/26  AZ2 workload   10.1.20.192/26  AZ2 tgw</text>
+<text x="360" y="720" font-size="10.5" font-weight="700" text-anchor="start" fill="#0f172a">test instance  10.1.20.132</text>
+<line x1="505" y1="626" x2="340" y2="596" stroke="#d97706" stroke-width="2"/>
+<line x1="26" y1="568" x2="26" y2="199" stroke="#d97706" stroke-width="2" stroke-dasharray="6,4"/>
+<line x1="26" y1="199" x2="44" y2="199" stroke="#d97706" stroke-width="2" stroke-dasharray="6,4"/>
+<line x1="26" y1="568" x2="20" y2="568" stroke="#d97706" stroke-width="2" stroke-dasharray="6,4"/>
+<rect x="1340" y="70" width="640" height="400" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="1352" y="92" font-size="14" font-weight="700" text-anchor="start" fill="#0f172a">Site B inspection VPC  10.2.0.0/21  (vpc-03be3cdec62aec982)</text>
+<rect x="1354" y="104" width="298" height="354" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.5" stroke-dasharray="5,4"/>
+<text x="1364" y="122" font-size="12" font-weight="700" text-anchor="start" fill="#475569">us-west-2a</text>
+<rect x="1364" y="132" width="278" height="108" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+<text x="1503" y="152" font-size="13" font-weight="700" text-anchor="middle" fill="#0f172a">FortiGate Primary</text>
+<text x="1503" y="168" font-size="10" font-weight="400" text-anchor="middle" fill="#475569">i-0f5d4ef496d107485</text>
+<text x="1374" y="188" font-size="10.5" font-weight="400" text-anchor="start" fill="#0f172a">port1 public   10.2.0.4</text>
+<text x="1374" y="203" font-size="10.5" font-weight="400" text-anchor="start" fill="#0f172a">port2 private  gre-east, gre-west to TGW</text>
+<text x="1374" y="218" font-size="10.5" font-weight="400" text-anchor="start" fill="#0f172a">port3 heartbeat 10.2.4.4</text>
+<text x="1374" y="233" font-size="10.5" font-weight="400" text-anchor="start" fill="#0f172a">port4 HA-mgmt  10.99.0.21  (mgmt VPC)</text>
+<rect x="1364" y="252" width="278" height="40" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="1374" y="269" font-size="11" font-weight="700" text-anchor="start" fill="#0f172a">public subnet</text>
+<text x="1374" y="284" font-size="10.5" font-weight="400" text-anchor="start" fill="#475569">10.2.0.0/27</text>
+<rect x="1364" y="300" width="278" height="40" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="1374" y="317" font-size="11" font-weight="700" text-anchor="start" fill="#0f172a">private subnet</text>
+<text x="1374" y="332" font-size="10.5" font-weight="400" text-anchor="start" fill="#475569">10.2.0.64/27</text>
+<rect x="1364" y="348" width="278" height="40" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="1374" y="365" font-size="11" font-weight="700" text-anchor="start" fill="#0f172a">ha-sync subnet</text>
+<text x="1374" y="380" font-size="10.5" font-weight="400" text-anchor="start" fill="#475569">10.2.0.128/27</text>
+<rect x="1364" y="396" width="278" height="40" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="1374" y="413" font-size="11" font-weight="700" text-anchor="start" fill="#0f172a">tgw subnet</text>
+<text x="1374" y="428" font-size="10.5" font-weight="400" text-anchor="start" fill="#475569">10.2.0.192/27</text>
+<rect x="1664" y="104" width="298" height="354" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.5" stroke-dasharray="5,4"/>
+<text x="1674" y="122" font-size="12" font-weight="700" text-anchor="start" fill="#475569">us-west-2b</text>
+<rect x="1674" y="132" width="278" height="108" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+<text x="1813" y="152" font-size="13" font-weight="700" text-anchor="middle" fill="#0f172a">FortiGate Secondary</text>
+<text x="1813" y="168" font-size="10" font-weight="400" text-anchor="middle" fill="#475569">i-07540e3923c3ce6d3</text>
+<text x="1684" y="188" font-size="10.5" font-weight="400" text-anchor="start" fill="#0f172a">port1 public   10.2.1.4</text>
+<text x="1684" y="203" font-size="10.5" font-weight="400" text-anchor="start" fill="#0f172a">port2 private  (no GRE; takes over on failover)</text>
+<text x="1684" y="218" font-size="10.5" font-weight="400" text-anchor="start" fill="#0f172a">port3 heartbeat 10.2.5.4</text>
+<text x="1684" y="233" font-size="10.5" font-weight="400" text-anchor="start" fill="#0f172a">port4 HA-mgmt  10.99.0.85  (mgmt VPC)</text>
+<rect x="1674" y="252" width="278" height="40" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="1684" y="269" font-size="11" font-weight="700" text-anchor="start" fill="#0f172a">public subnet</text>
+<text x="1684" y="284" font-size="10.5" font-weight="400" text-anchor="start" fill="#475569">10.2.0.32/27</text>
+<rect x="1674" y="300" width="278" height="40" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="1684" y="317" font-size="11" font-weight="700" text-anchor="start" fill="#0f172a">private subnet</text>
+<text x="1684" y="332" font-size="10.5" font-weight="400" text-anchor="start" fill="#475569">10.2.0.96/27</text>
+<rect x="1674" y="348" width="278" height="40" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="1684" y="365" font-size="11" font-weight="700" text-anchor="start" fill="#0f172a">ha-sync subnet</text>
+<text x="1684" y="380" font-size="10.5" font-weight="400" text-anchor="start" fill="#475569">10.2.0.160/27</text>
+<rect x="1674" y="396" width="278" height="40" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="1684" y="413" font-size="11" font-weight="700" text-anchor="start" fill="#0f172a">tgw subnet</text>
+<text x="1684" y="428" font-size="10.5" font-weight="400" text-anchor="start" fill="#475569">10.2.0.224/27</text>
+<rect x="1340" y="480" width="640" height="30" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="1660" y="500" font-size="12" font-weight="700" text-anchor="middle" fill="#0f172a">Cluster EIP 44.230.233.94   (IPsec endpoint, follows the master)</text>
+<rect x="1340" y="540" width="640" height="56" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="1660" y="563" font-size="13" font-weight="700" text-anchor="middle" fill="#0f172a">Site B Transit Gateway</text>
+<text x="1660" y="581" font-size="10.5" font-weight="400" text-anchor="middle" fill="#475569">tgw-0ad96ce3fdf156f4c   (Connect: GRE + eBGP per spoke to the primary port2; inspection attachment is transport only)</text>
+<rect x="1340" y="626" width="310" height="110" rx="6" fill="#f8fafc" stroke="#16a34a" stroke-width="1.5"/>
+<text x="1350" y="646" font-size="13" font-weight="700" text-anchor="start" fill="#0f172a">Site B east spoke VPC</text>
+<text x="1350" y="663" font-size="10.5" font-weight="400" text-anchor="start" fill="#475569">10.2.10.0/24   vpc-00f479acab76141b3</text>
+<text x="1350" y="683" font-size="10.5" font-weight="400" text-anchor="start" fill="#0f172a">10.2.10.0/26  AZ1 workload   10.2.10.128/26  AZ1 tgw</text>
+<text x="1350" y="698" font-size="10.5" font-weight="400" text-anchor="start" fill="#0f172a">10.2.10.64/26  AZ2 workload   10.2.10.192/26  AZ2 tgw</text>
+<text x="1350" y="720" font-size="10.5" font-weight="700" text-anchor="start" fill="#0f172a">test instance  10.2.10.132</text>
+<line x1="1495" y1="626" x2="1660" y2="596" stroke="#d97706" stroke-width="2"/>
+<rect x="1670" y="626" width="310" height="110" rx="6" fill="#f8fafc" stroke="#16a34a" stroke-width="1.5"/>
+<text x="1680" y="646" font-size="13" font-weight="700" text-anchor="start" fill="#0f172a">Site B west spoke VPC</text>
+<text x="1680" y="663" font-size="10.5" font-weight="400" text-anchor="start" fill="#475569">10.2.20.0/24   vpc-0a5149dea6a066d66</text>
+<text x="1680" y="683" font-size="10.5" font-weight="400" text-anchor="start" fill="#0f172a">10.2.20.0/26  AZ1 workload   10.2.20.128/26  AZ1 tgw</text>
+<text x="1680" y="698" font-size="10.5" font-weight="400" text-anchor="start" fill="#0f172a">10.2.20.64/26  AZ2 workload   10.2.20.192/26  AZ2 tgw</text>
+<text x="1680" y="720" font-size="10.5" font-weight="700" text-anchor="start" fill="#0f172a">test instance  10.2.20.132</text>
+<line x1="1825" y1="626" x2="1660" y2="596" stroke="#d97706" stroke-width="2"/>
+<line x1="1346" y1="568" x2="1346" y2="199" stroke="#d97706" stroke-width="2" stroke-dasharray="6,4"/>
+<line x1="1346" y1="199" x2="1364" y2="199" stroke="#d97706" stroke-width="2" stroke-dasharray="6,4"/>
+<line x1="1346" y1="568" x2="1340" y2="568" stroke="#d97706" stroke-width="2" stroke-dasharray="6,4"/>
+<rect x="690" y="70" width="620" height="666" rx="6" fill="#fdf4ff" stroke="#a855f7" stroke-width="1.5"/>
+<text x="702" y="92" font-size="14" font-weight="700" text-anchor="start" fill="#0f172a">Management VPC  10.99.0.0/24  (vpc-0fb9d93167f550df8)</text>
+<text x="702" y="110" font-size="10.5" font-weight="400" text-anchor="start" fill="#475569">own IGW, not attached to either TGW. Holds every FortiGate port4 (multi-VPC ENI, the HA management interface)</text>
+<rect x="704" y="126" width="290" height="230" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5" stroke-dasharray="5,4"/>
+<text x="714" y="144" font-size="12" font-weight="700" text-anchor="start" fill="#475569">us-west-2a  10.99.0.0/26</text>
+<rect x="1004" y="126" width="290" height="230" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5" stroke-dasharray="5,4"/>
+<text x="1014" y="144" font-size="12" font-weight="700" text-anchor="start" fill="#475569">us-west-2b  10.99.0.64/26</text>
+<rect x="714" y="154" width="270" height="46" rx="6" fill="#f3e8ff" stroke="#7e22ce" stroke-width="1.5"/>
+<text x="849" y="174" font-size="12" font-weight="700" text-anchor="middle" fill="#0f172a">FortiManager  10.99.0.14</text>
+<text x="849" y="190" font-size="10" font-weight="400" text-anchor="middle" fill="#475569">public 44.234.212.12</text>
+<rect x="714" y="208" width="270" height="46" rx="6" fill="#f3e8ff" stroke="#7e22ce" stroke-width="1.5"/>
+<text x="849" y="228" font-size="12" font-weight="700" text-anchor="middle" fill="#0f172a">FortiAnalyzer  10.99.0.13</text>
+<text x="849" y="244" font-size="10" font-weight="400" text-anchor="middle" fill="#475569">public 54.218.173.72</text>
+<rect x="714" y="262" width="270" height="40" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+<text x="849" y="279" font-size="11" font-weight="700" text-anchor="middle" fill="#0f172a">Site A primary FortiGate port4  10.99.0.20</text>
+<text x="849" y="294" font-size="10" font-weight="400" text-anchor="middle" fill="#475569">public 32.186.61.232</text>
+<rect x="1014" y="154" width="270" height="40" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+<text x="1149" y="171" font-size="11" font-weight="700" text-anchor="middle" fill="#0f172a">Site A secondary FortiGate port4  10.99.0.84</text>
+<text x="1149" y="186" font-size="10" font-weight="400" text-anchor="middle" fill="#475569">public 35.81.182.52</text>
+<rect x="714" y="308" width="270" height="40" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+<text x="849" y="325" font-size="11" font-weight="700" text-anchor="middle" fill="#0f172a">Site B primary FortiGate port4  10.99.0.21</text>
+<text x="849" y="340" font-size="10" font-weight="400" text-anchor="middle" fill="#475569">public 35.162.2.211</text>
+<rect x="1014" y="200" width="270" height="40" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+<text x="1149" y="217" font-size="11" font-weight="700" text-anchor="middle" fill="#0f172a">Site B secondary FortiGate port4  10.99.0.85</text>
+<text x="1149" y="232" font-size="10" font-weight="400" text-anchor="middle" fill="#475569">public 35.82.100.45</text>
+<line x1="660" y1="190" x2="690" y2="190" stroke="#a855f7" stroke-width="2" stroke-dasharray="4,3"/>
+<line x1="1310" y1="190" x2="1340" y2="190" stroke="#a855f7" stroke-width="2" stroke-dasharray="4,3"/>
+<text x="675" y="182" font-size="10" font-weight="700" text-anchor="middle" fill="#a855f7">port4</text>
+<text x="1325" y="182" font-size="10" font-weight="700" text-anchor="middle" fill="#a855f7">port4</text>
+<text x="1000" y="400" font-size="13" font-weight="700" text-anchor="middle" fill="#dc2626">IPsec  (IKEv2, route-based, static routes)</text>
+<text x="1000" y="418" font-size="11" font-weight="400" text-anchor="middle" fill="#475569">cluster EIP to cluster EIP; inter-site traffic only over the tunnel</text>
+<text x="1000" y="482" font-size="11" font-weight="700" text-anchor="middle" fill="#dc2626">32.187.0.28   &lt;==&gt;   44.230.233.94</text>
+<line x1="660" y1="495" x2="1340" y2="495" stroke="#dc2626" stroke-width="3" stroke-dasharray="8,5"/>
+<text x="1000" y="670" font-size="11" font-weight="400" text-anchor="middle" fill="#475569">purple dashed: port4 HA management (GUI, SSH, FMG, FAZ, FortiGuard, EC2 API)</text>
+<text x="1000" y="686" font-size="11" font-weight="400" text-anchor="middle" fill="#475569">amber: spoke attachments    amber dashed: TGW Connect (GRE + eBGP) to primary port2    red dashed: IPsec</text>
+</svg>
