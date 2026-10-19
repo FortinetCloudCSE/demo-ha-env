@@ -2,14 +2,12 @@
   "repoName":"demo-ha-env",
   "author":"Mike Wooten",
   "workshopTitle":"Isolated Customer Traffic Across Two FortiGate FGCP HA Pairs in AWS",
-  "themeVariant":"CloudCSEMovie",
-  "logoBannerText":"FortiHugo",
+  "themeVariant":"UseCase",
+  "logoBannerText":"",
   "logoBannerSubText":"",
   "errorLevel":"warning",
   "googleServicesID":"G-5RZBH288ST",
   "marketingCode": "FortiHugo202",
-  "videoHeaderSrc": "/videos/CloudsAnimated.mp4",
-  "videoHeaderInterval": "60",
   "shortcuts": [
   {
     "text": "Fortinet Cloud CSE GitHub Org",
