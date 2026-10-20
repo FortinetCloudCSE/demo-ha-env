@@ -6,18 +6,7 @@ archetype: "home"
 description: "Two FortiGate FGCP HA pairs, TGW Connect (GRE) to the spokes, and per-customer GRE tunnels inside an IPsec tunnel between the sites"
 ---
 
-<!-- TODO: replace with Lucidchart export (full design, both sites): demo-design.png -->
-```
-        Site A                                                              Site B
- ┌───────────────────────────────┐                          ┌───────────────────────────────┐
- │ east VPC ─┐                   │                          │                   ┌─ east VPC │
- │           ├─ TGW ══GRE══ FGCP │═══ IPsec ═══ GRE-x ═════│ FGCP ══GRE══ TGW ─┤           │
- │ west VPC ─┘  (Connect)   pair │  (gre-east-x, gre-west-x)│ pair  (Connect)   └─ west VPC │
- └───────────────────────────────┘                          └───────────────────────────────┘
-                 │ port4 (multi-VPC ENI, no EIP)                 │ port4 (multi-VPC ENI, no EIP)
-                 └──────────────┐                 ┌──────────────┘
-                         Management VPC: FortiManager + FortiAnalyzer
-```
+![Two FortiGate FGCP HA pairs joined by IPsec, with per-customer GRE isolation](demo-design.svg)
 
 This documentation describes the **demo-ha-env** demo: a Terraform-built design in which two customers (**east** and **west**)
 share one pair of FortiGates at each of two sites, yet their traffic stays separate end to end. Each customer has its own

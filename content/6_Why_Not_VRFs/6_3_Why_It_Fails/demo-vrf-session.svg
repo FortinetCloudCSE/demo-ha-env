@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" width="1200" height="660" role="img" aria-labelledby="t d">
+<title id="t">A session created in one VRF cannot be matched by a reply in another VRF</title>
+<desc id="d">Left: the first packet arrives on gre-east in VRF 10, is routed by a leaked static route, passes policy with SNAT, and a session is created in VRF 10. Right: the reply arrives on port1 in VRF 0, the session lookup in VRF 0 finds nothing, and the packet is dropped.</desc>
+<defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#5b6b7b"/></marker></defs>
+<rect width="1200" height="660" fill="#ffffff"/>
+<text x="600.0" y="26" font-size="15" font-weight="700" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Why the egress flow fails: the session and its reply are in different VRFs</text>
+<text x="210" y="76" font-size="13" font-weight="700" fill="#1f6fb5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">First packet  (instance to internet)</text>
+<text x="990" y="76" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Reply  (internet back to the instance)</text>
+<rect x="30" y="96" width="360" height="76" rx="8" fill="#ffffff" stroke="#1f6fb5" stroke-width="2"/>
+<circle cx="50" cy="118" r="11" fill="#1f6fb5"/>
+<text x="50" y="122" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">1</text>
+<text x="70" y="122" font-size="12.5" font-weight="700" fill="#1f6fb5" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Arrives on gre-east</text>
+<text x="70" y="142" font-size="10.5" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">ingress VRF = 10</text>
+<text x="70" y="158" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">10.1.10.132:44656 to 44.248.100.235:443  (SYN)</text>
+<rect x="30" y="196" width="360" height="76" rx="8" fill="#ffffff" stroke="#1f6fb5" stroke-width="2"/>
+<circle cx="50" cy="218" r="11" fill="#1f6fb5"/>
+<text x="50" y="222" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">2</text>
+<text x="70" y="222" font-size="12.5" font-weight="700" fill="#1f6fb5" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Route lookup in VRF 10</text>
+<text x="70" y="242" font-size="10.5" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">default via port1 works</text>
+<text x="70" y="258" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">(a leaked static route changes the routing result)</text>
+<rect x="30" y="296" width="360" height="76" rx="8" fill="#ffffff" stroke="#1f6fb5" stroke-width="2"/>
+<circle cx="50" cy="318" r="11" fill="#1f6fb5"/>
+<text x="50" y="322" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">3</text>
+<text x="70" y="322" font-size="12.5" font-weight="700" fill="#1f6fb5" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Policy 1 and SNAT</text>
+<text x="70" y="342" font-size="10.5" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">allowed, source NAT to 10.1.0.4</text>
+<text x="70" y="358" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">leaves port1 toward the internet</text>
+<rect x="30" y="396" width="360" height="76" rx="8" fill="#eaf2fb" stroke="#1f6fb5" stroke-width="2"/>
+<circle cx="50" cy="418" r="11" fill="#1f6fb5"/>
+<text x="50" y="422" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">4</text>
+<text x="70" y="422" font-size="12.5" font-weight="700" fill="#1f6fb5" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Session created in VRF 10</text>
+<text x="70" y="442" font-size="10.5" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">vd-root:10, session-00001af7</text>
+<text x="70" y="458" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">reply expected back from port1</text>
+<polyline points="210,172 210,196" fill="none" stroke="#5b6b7b" stroke-width="2" stroke-linejoin="round" marker-end="url(#ar)"/>
+<polyline points="210,272 210,296" fill="none" stroke="#5b6b7b" stroke-width="2" stroke-linejoin="round" marker-end="url(#ar)"/>
+<polyline points="210,372 210,396" fill="none" stroke="#5b6b7b" stroke-width="2" stroke-linejoin="round" marker-end="url(#ar)"/>
+<rect x="810" y="96" width="360" height="76" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+<circle cx="830" cy="118" r="11" fill="#c0392b"/>
+<text x="830" y="122" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">1</text>
+<text x="850" y="122" font-size="12.5" font-weight="700" fill="#c0392b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Arrives on port1</text>
+<text x="850" y="142" font-size="10.5" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">ingress VRF = 0</text>
+<text x="850" y="158" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">44.248.100.235:443 to 10.1.0.4  (SYN-ACK)</text>
+<rect x="810" y="196" width="360" height="76" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+<circle cx="830" cy="218" r="11" fill="#c0392b"/>
+<text x="830" y="222" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">2</text>
+<text x="850" y="222" font-size="12.5" font-weight="700" fill="#c0392b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Session lookup in VRF 0</text>
+<text x="850" y="242" font-size="10.5" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">a session is looked up in the VRF of</text>
+<text x="850" y="258" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">the arrival interface, not the first packet's</text>
+<rect x="810" y="296" width="360" height="76" rx="8" fill="#fdeceb" stroke="#c0392b" stroke-width="2"/>
+<circle cx="830" cy="318" r="11" fill="#c0392b"/>
+<text x="830" y="322" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">3</text>
+<text x="850" y="322" font-size="12.5" font-weight="700" fill="#c0392b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">no session matched</text>
+<text x="850" y="342" font-size="10.5" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">DROP: the instance never sees the reply</text>
+<text x="850" y="358" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">it keeps retransmitting the SYN</text>
+<polyline points="990,172 990,196" fill="none" stroke="#5b6b7b" stroke-width="2" stroke-linejoin="round" marker-end="url(#ar)"/>
+<polyline points="990,272 990,296" fill="none" stroke="#5b6b7b" stroke-width="2" stroke-linejoin="round" marker-end="url(#ar)"/>
+<rect x="430" y="150" width="340" height="330" rx="10" fill="#f8fafc" stroke="#5b6b7b" stroke-width="2"/>
+<text x="600" y="174" font-size="13" font-weight="700" fill="#5b6b7b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">FortiGate session tables</text>
+<rect x="450" y="195" width="300" height="118" rx="8" fill="#eaf2fb" stroke="#1f6fb5" stroke-width="2"/>
+<text x="462" y="215" font-size="12.5" font-weight="700" fill="#1f6fb5" text-anchor="start" font-family="Helvetica, Arial, sans-serif">VRF 10</text>
+<text x="462" y="235" font-size="11" font-weight="700" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">session-00001af7</text>
+<text x="462" y="251" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">orig:  gre-east  10.1.10.132 to 44.248.100.235</text>
+<text x="462" y="266" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">reply: expected from port1</text>
+<text x="462" y="285" font-size="10" font-weight="700" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">never searched: the reply is in VRF 0</text>
+<rect x="450" y="335" width="300" height="120" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="462" y="355" font-size="12.5" font-weight="700" fill="#c0392b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">VRF 0</text>
+<text x="462" y="376" font-size="11" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">empty for this flow</text>
+<text x="462" y="395" font-size="10.5" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">lookup of the SYN-ACK finds nothing</text>
+<text x="462" y="410" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">diagnose debug flow: no session matched</text>
+<line x1="700" y1="425" x2="730" y2="445" stroke="#c0392b" stroke-width="4"/><line x1="730" y1="425" x2="700" y2="445" stroke="#c0392b" stroke-width="4"/>
+<polyline points="390,434 410,434 410,255 450,255" fill="none" stroke="#1f6fb5" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#ar)"/>
+<text x="402" y="316" font-size="10" font-weight="700" fill="#1f6fb5" text-anchor="end" font-family="Helvetica, Arial, sans-serif">creates</text>
+<polyline points="810,234 790,234 790,395 750,395" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="6 4" marker-end="url(#ar)"/>
+<text x="742" y="388" font-size="10" font-weight="700" fill="#c0392b" text-anchor="end" font-family="Helvetica, Arial, sans-serif">looks up</text>
+<rect x="30" y="520" width="1140" height="110" rx="8" fill="#f4f7fa" stroke="#d3dbe3" stroke-width="1"/>
+<text x="46" y="544" font-size="11" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">The routing lookup is satisfied by a leaked static route, so the first packet goes out. The session lookup uses the VRF of the interface the packet arrives on.</text>
+<text x="46" y="566" font-size="11" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Nothing in a route leak makes the reply arrive in the original VRF, so the reply and the first packet never meet in one session.</text>
+<text x="46" y="588" font-size="11" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Flow 1 (the SSH VIP) is the mirror image: the session is created in VRF 0 on port1 and the reply arrives in VRF 10 on gre-east; there the drop message was captured.</text>
+<text x="46" y="610" font-size="11" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Flows that stay inside one VRF work, for example gre-east to gre-east-x, both in VRF 10.</text>
+</svg>

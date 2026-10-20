@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 640" width="1240" height="640" role="img" aria-labelledby="t d">
+<title id="t">Option A: one egress port and EIP per customer VRF</title>
+<desc id="d">Each customer VRF has its own egress port with its own EIP: gre-east, a policy and port5 in VRF 10 to EIP-east, and gre-west, a policy and port6 in VRF 20 to EIP-west. VRF 0 keeps port1 with the cluster EIP, the IPsec underlay, port2 for the GRE underlay and port3.</desc>
+<defs><marker id="ar" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#5b6b7b"/></marker></defs>
+<rect width="1240" height="640" fill="#ffffff"/>
+<text x="620.0" y="26" font-size="15" font-weight="700" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Option A: one egress port per customer VRF, so every flow stays inside one VRF</text>
+<rect x="30" y="90" width="120" height="330" rx="8" fill="#e9f1fb" stroke="#3c6ea8" stroke-width="2"/>
+<text x="90" y="252" font-size="13" font-weight="700" fill="#2a4f7a" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Transit</text>
+<text x="90" y="268" font-size="13" font-weight="700" fill="#2a4f7a" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Gateway</text>
+<rect x="220" y="56" width="740" height="450" rx="10" fill="#fdeceb" stroke="#c0392b" stroke-width="2"/>
+<text x="590" y="78" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">FortiGate primary</text>
+<rect x="240" y="90" width="700" height="118" rx="8" fill="#eaf2fb" stroke="#1f6fb5" stroke-width="1.8" stroke-dasharray="6 4"/>
+<text x="252" y="108" font-size="12" font-weight="700" fill="#1f6fb5" text-anchor="start" font-family="Helvetica, Arial, sans-serif">VRF 10  (east)</text>
+<rect x="260" y="126" width="130" height="60" rx="6" fill="#ffffff" stroke="#1f6fb5" stroke-width="2"/>
+<text x="270" y="148" font-size="12" font-weight="700" fill="#1f6fb5" text-anchor="start" font-family="Helvetica, Arial, sans-serif">gre-east</text>
+<text x="270" y="164" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">from the TGW</text>
+<rect x="440" y="126" width="130" height="60" rx="6" fill="#ffffff" stroke="#1f6fb5" stroke-width="2"/>
+<text x="450" y="148" font-size="12" font-weight="700" fill="#1f6fb5" text-anchor="start" font-family="Helvetica, Arial, sans-serif">policy</text>
+<text x="450" y="164" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">east only</text>
+<rect x="630" y="126" width="140" height="60" rx="6" fill="#ffffff" stroke="#1f6fb5" stroke-width="2"/>
+<text x="640" y="148" font-size="12" font-weight="700" fill="#1f6fb5" text-anchor="start" font-family="Helvetica, Arial, sans-serif">port5</text>
+<text x="640" y="164" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">VRF 10, own subnet</text>
+<text x="640" y="178" font-size="10" font-weight="700" fill="#1f6fb5" text-anchor="start" font-family="Helvetica, Arial, sans-serif">new ENI + EIP</text>
+<polyline points="390,156 440,156" fill="none" stroke="#1f6fb5" stroke-width="3" stroke-linejoin="round" marker-end="url(#ar)"/>
+<polyline points="570,156 630,156" fill="none" stroke="#1f6fb5" stroke-width="3" stroke-linejoin="round" marker-end="url(#ar)"/>
+<polyline points="770,156 990,156" fill="none" stroke="#1f6fb5" stroke-width="4" stroke-linejoin="round"/>
+<rect x="990" y="132" width="110" height="48" rx="6" fill="#ffffff" stroke="#1f6fb5" stroke-width="2"/>
+<text x="1045" y="152" font-size="12" font-weight="700" fill="#1f6fb5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">EIP-east</text>
+<text x="1045" y="168" font-size="10" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">NAT and VIPs</text>
+<polyline points="1100,156 1140,156" fill="none" stroke="#1f6fb5" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="150,156 260,156" fill="none" stroke="#1f6fb5" stroke-width="4" stroke-linejoin="round"/>
+<rect x="240" y="230" width="700" height="118" rx="8" fill="#fdf3e7" stroke="#d9822b" stroke-width="1.8" stroke-dasharray="6 4"/>
+<text x="252" y="248" font-size="12" font-weight="700" fill="#d9822b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">VRF 20  (west)</text>
+<rect x="260" y="266" width="130" height="60" rx="6" fill="#ffffff" stroke="#d9822b" stroke-width="2"/>
+<text x="270" y="288" font-size="12" font-weight="700" fill="#d9822b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">gre-west</text>
+<text x="270" y="304" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">from the TGW</text>
+<rect x="440" y="266" width="130" height="60" rx="6" fill="#ffffff" stroke="#d9822b" stroke-width="2"/>
+<text x="450" y="288" font-size="12" font-weight="700" fill="#d9822b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">policy</text>
+<text x="450" y="304" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">west only</text>
+<rect x="630" y="266" width="140" height="60" rx="6" fill="#ffffff" stroke="#d9822b" stroke-width="2"/>
+<text x="640" y="288" font-size="12" font-weight="700" fill="#d9822b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">port6</text>
+<text x="640" y="304" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">VRF 20, own subnet</text>
+<text x="640" y="318" font-size="10" font-weight="700" fill="#d9822b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">new ENI + EIP</text>
+<polyline points="390,296 440,296" fill="none" stroke="#d9822b" stroke-width="3" stroke-linejoin="round" marker-end="url(#ar)"/>
+<polyline points="570,296 630,296" fill="none" stroke="#d9822b" stroke-width="3" stroke-linejoin="round" marker-end="url(#ar)"/>
+<polyline points="770,296 990,296" fill="none" stroke="#d9822b" stroke-width="4" stroke-linejoin="round"/>
+<rect x="990" y="272" width="110" height="48" rx="6" fill="#ffffff" stroke="#d9822b" stroke-width="2"/>
+<text x="1045" y="292" font-size="12" font-weight="700" fill="#d9822b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">EIP-west</text>
+<text x="1045" y="308" font-size="10" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">NAT and VIPs</text>
+<polyline points="1100,296 1140,296" fill="none" stroke="#d9822b" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="150,296 260,296" fill="none" stroke="#d9822b" stroke-width="4" stroke-linejoin="round"/>
+<rect x="240" y="370" width="700" height="118" rx="8" fill="#f4f7fa" stroke="#5b6b7b" stroke-width="1.8" stroke-dasharray="6 4"/>
+<text x="252" y="388" font-size="12" font-weight="700" fill="#5b6b7b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">VRF 0  (default)</text>
+<rect x="260" y="400" width="160" height="60" rx="6" fill="#ffffff" stroke="#5b6b7b" stroke-width="2"/>
+<text x="270" y="420" font-size="12" font-weight="700" fill="#5b6b7b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">port1</text>
+<text x="270" y="436" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">cluster EIP</text>
+<text x="270" y="450" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">IPsec underlay</text>
+<rect x="440" y="400" width="160" height="60" rx="6" fill="#ffffff" stroke="#5b6b7b" stroke-width="2"/>
+<text x="450" y="420" font-size="12" font-weight="700" fill="#5b6b7b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">port2</text>
+<text x="450" y="436" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">GRE underlay</text>
+<text x="450" y="450" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">to the TGW</text>
+<rect x="620" y="400" width="160" height="60" rx="6" fill="#ffffff" stroke="#5b6b7b" stroke-width="2"/>
+<text x="630" y="420" font-size="12" font-weight="700" fill="#5b6b7b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">port3</text>
+<text x="630" y="436" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">HA link,</text>
+<text x="630" y="450" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">management EIP</text>
+<text x="810" y="430" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">gre-east-x and gre-west-x stay</text>
+<text x="810" y="444" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">in their own VRFs, inside IPsec</text>
+<polyline points="340,460 340,530 1170,530 1170,400" fill="none" stroke="#5b6b7b" stroke-width="3" stroke-linejoin="round"/>
+<text x="760" y="546" font-size="10.5" font-weight="700" fill="#5b6b7b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">cluster EIP: IPsec to the other site</text>
+<rect x="1140" y="90" width="90" height="310" rx="20" fill="#eef2f6" stroke="#9aa9b8" stroke-width="1.5"/>
+<text x="1185" y="252" font-size="13" font-weight="700" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Internet</text>
+<rect x="30" y="565" width="1180" height="62" rx="8" fill="#f4f7fa" stroke="#d3dbe3" stroke-width="1"/>
+<text x="46" y="586" font-size="11" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Cost: two more ENIs per FortiGate, two more EIPs per site, new subnets, and more EIPs to move on an HA failover.</text>
+<text x="46" y="604" font-size="11" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Gain: each customer also gets its own public address. The tunnel structure (GRE per customer to the TGW and inside IPsec) does not change.</text>
+<text x="46" y="622" font-size="11" font-weight="700" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Recommended if VRFs are required.</text>
+</svg>

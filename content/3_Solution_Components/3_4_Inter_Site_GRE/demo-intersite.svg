@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" width="1200" height="660" role="img" aria-labelledby="t d">
+<title id="t">One IPsec tunnel between the sites carrying one GRE tunnel per customer</title>
+<desc id="d">Each FortiGate has gre-east and gre-west toward its TGW, firewall policies, then gre-east-x (key 10) and gre-west-x (key 20), which ride inside a single IPsec IKEv2 tunnel from cluster EIP to cluster EIP.</desc>
+<rect width="1200" height="660" fill="#ffffff"/>
+<text x="600.0" y="26" font-size="15" font-weight="700" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Per-customer GRE tunnels inside one IPsec tunnel</text>
+<rect x="30" y="66" width="300" height="444" rx="10" fill="#fdeceb" stroke="#c0392b" stroke-width="2"/>
+<text x="180" y="88" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">FortiGate cluster, site A</text>
+<polyline points="120,120 120,215" fill="none" stroke="#1f6fb5" stroke-width="2.5" stroke-linejoin="round"/>
+<polyline points="240,170 240,215" fill="none" stroke="#d9822b" stroke-width="2.5" stroke-linejoin="round"/>
+<polyline points="120,271 120,335" fill="none" stroke="#1f6fb5" stroke-width="2.5" stroke-linejoin="round"/>
+<polyline points="240,271 240,395" fill="none" stroke="#d9822b" stroke-width="2.5" stroke-linejoin="round"/>
+<rect x="50" y="100" width="260" height="40" rx="6" fill="#ffffff" stroke="#1f6fb5" stroke-width="2"/>
+<text x="62" y="118" font-size="12" font-weight="700" fill="#1f6fb5" text-anchor="start" font-family="Helvetica, Arial, sans-serif">gre-east</text>
+<text x="62" y="133" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">to the TGW (Connect)</text>
+<rect x="50" y="150" width="260" height="40" rx="6" fill="#ffffff" stroke="#d9822b" stroke-width="2"/>
+<text x="62" y="168" font-size="12" font-weight="700" fill="#d9822b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">gre-west</text>
+<text x="62" y="183" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">to the TGW (Connect)</text>
+<rect x="50" y="215" width="260" height="56" rx="6" fill="#ffffff" stroke="#8aa0b4" stroke-width="1.8"/>
+<text x="180" y="236" font-size="11.5" font-weight="700" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">firewall policies 3, 4, 5, 6</text>
+<text x="180" y="252" font-size="10" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">east to east and west to west only;</text>
+<text x="180" y="264" font-size="10" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">east to west is denied and logged</text>
+<rect x="50" y="315" width="260" height="50" rx="6" fill="#ffffff" stroke="#1f6fb5" stroke-width="2"/>
+<text x="62" y="333" font-size="12" font-weight="700" fill="#1f6fb5" text-anchor="start" font-family="Helvetica, Arial, sans-serif">gre-east-x  ·  key 10</text>
+<text x="62" y="349" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">169.254.10.1/32  ·  mtu 1350  ·  static route</text>
+<rect x="50" y="375" width="260" height="50" rx="6" fill="#ffffff" stroke="#d9822b" stroke-width="2"/>
+<text x="62" y="393" font-size="12" font-weight="700" fill="#d9822b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">gre-west-x  ·  key 20</text>
+<text x="62" y="409" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">169.254.20.1/32  ·  mtu 1350  ·  static route</text>
+<rect x="50" y="435" width="260" height="52" rx="6" fill="#e7ecf1" stroke="#5b6b7b" stroke-width="2"/>
+<text x="62" y="454" font-size="12" font-weight="700" fill="#5b6b7b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">to-site-b  (IPsec, IKEv2)</text>
+<text x="62" y="470" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">169.254.100.1/32  ·  port1 cluster EIP</text>
+<rect x="870" y="66" width="300" height="444" rx="10" fill="#fdeceb" stroke="#c0392b" stroke-width="2"/>
+<text x="1020" y="88" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">FortiGate cluster, site B</text>
+<polyline points="960,120 960,215" fill="none" stroke="#1f6fb5" stroke-width="2.5" stroke-linejoin="round"/>
+<polyline points="1080,170 1080,215" fill="none" stroke="#d9822b" stroke-width="2.5" stroke-linejoin="round"/>
+<polyline points="960,271 960,335" fill="none" stroke="#1f6fb5" stroke-width="2.5" stroke-linejoin="round"/>
+<polyline points="1080,271 1080,395" fill="none" stroke="#d9822b" stroke-width="2.5" stroke-linejoin="round"/>
+<rect x="890" y="100" width="260" height="40" rx="6" fill="#ffffff" stroke="#1f6fb5" stroke-width="2"/>
+<text x="902" y="118" font-size="12" font-weight="700" fill="#1f6fb5" text-anchor="start" font-family="Helvetica, Arial, sans-serif">gre-east</text>
+<text x="902" y="133" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">to the TGW (Connect)</text>
+<rect x="890" y="150" width="260" height="40" rx="6" fill="#ffffff" stroke="#d9822b" stroke-width="2"/>
+<text x="902" y="168" font-size="12" font-weight="700" fill="#d9822b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">gre-west</text>
+<text x="902" y="183" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">to the TGW (Connect)</text>
+<rect x="890" y="215" width="260" height="56" rx="6" fill="#ffffff" stroke="#8aa0b4" stroke-width="1.8"/>
+<text x="1020" y="236" font-size="11.5" font-weight="700" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">firewall policies 3, 4, 5, 6</text>
+<text x="1020" y="252" font-size="10" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">east to east and west to west only;</text>
+<text x="1020" y="264" font-size="10" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">east to west is denied and logged</text>
+<rect x="890" y="315" width="260" height="50" rx="6" fill="#ffffff" stroke="#1f6fb5" stroke-width="2"/>
+<text x="902" y="333" font-size="12" font-weight="700" fill="#1f6fb5" text-anchor="start" font-family="Helvetica, Arial, sans-serif">gre-east-x  ·  key 10</text>
+<text x="902" y="349" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">169.254.10.2/32  ·  mtu 1350  ·  static route</text>
+<rect x="890" y="375" width="260" height="50" rx="6" fill="#ffffff" stroke="#d9822b" stroke-width="2"/>
+<text x="902" y="393" font-size="12" font-weight="700" fill="#d9822b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">gre-west-x  ·  key 20</text>
+<text x="902" y="409" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">169.254.20.2/32  ·  mtu 1350  ·  static route</text>
+<rect x="890" y="435" width="260" height="52" rx="6" fill="#e7ecf1" stroke="#5b6b7b" stroke-width="2"/>
+<text x="902" y="454" font-size="12" font-weight="700" fill="#5b6b7b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">to-site-a  (IPsec, IKEv2)</text>
+<text x="902" y="470" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">169.254.100.2/32  ·  port1 cluster EIP</text>
+<rect x="330" y="285" width="540" height="210" rx="14" fill="#eef1f5" stroke="#5b6b7b" stroke-width="2.5"/>
+<text x="600" y="306" font-size="12" font-weight="700" fill="#5b6b7b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">IPsec tunnel  ·  IKEv2, route-based  ·  UDP 500 / 4500</text>
+<text x="600" y="323" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">cluster EIP to cluster EIP, one tunnel for both customers</text>
+<polyline points="330,365 870,365" fill="none" stroke="#1f6fb5" stroke-width="5" stroke-linejoin="round"/>
+<circle cx="330" cy="365" r="5" fill="#1f6fb5"/>
+<circle cx="870" cy="365" r="5" fill="#1f6fb5"/>
+<text x="600" y="354" font-size="11.5" font-weight="700" fill="#1f6fb5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">gre-east-x  ·  GRE key 10</text>
+<text x="600" y="386" font-size="10" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">169.254.10.1  to  169.254.10.2</text>
+<polyline points="330,425 870,425" fill="none" stroke="#d9822b" stroke-width="5" stroke-linejoin="round"/>
+<circle cx="330" cy="425" r="5" fill="#d9822b"/>
+<circle cx="870" cy="425" r="5" fill="#d9822b"/>
+<text x="600" y="414" font-size="11.5" font-weight="700" fill="#d9822b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">gre-west-x  ·  GRE key 20</text>
+<text x="600" y="446" font-size="10" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">169.254.20.1  to  169.254.20.2</text>
+<polyline points="330,474 870,474" fill="none" stroke="#5b6b7b" stroke-width="3" stroke-linejoin="round" stroke-dasharray="10 5"/>
+<circle cx="330" cy="474" r="5" fill="#5b6b7b"/>
+<circle cx="870" cy="474" r="5" fill="#5b6b7b"/>
+<text x="600" y="467" font-size="10" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">GRE endpoints: 169.254.100.1 to 169.254.100.2 (the IPsec interface addresses)</text>
+<text x="600" y="476" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif"></text>
+<rect x="30" y="540" width="1140" height="96" rx="8" fill="#f4f7fa" stroke="#d3dbe3" stroke-width="1"/>
+<text x="46" y="562" font-size="11" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Both GRE tunnels share the same endpoints, so the GRE key (10 or 20) tells them apart.</text>
+<text x="46" y="582" font-size="11" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Static routes only, no BGP between the sites: the remote east CIDR points at gre-east-x, the remote west CIDR at gre-west-x.</text>
+<text x="46" y="602" font-size="11" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Policies 8 and 9 reference the IPsec tunnel and allow only its two endpoint addresses. Without a policy, FortiOS never starts IKE.</text>
+<text x="46" y="622" font-size="11" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">After a failover the tunnel and both GRE tunnels re-establish on the new primary (IPsec follows the cluster EIP).</text>
+</svg>

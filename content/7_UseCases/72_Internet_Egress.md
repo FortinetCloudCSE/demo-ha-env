@@ -8,13 +8,7 @@ weight: 2
 The FortiGate advertises a **default route** to the TGW over BGP. The spoke VPC's TGW route table learns it, so spoke traffic
 goes TGW → Connect → FortiGate. Policy 1 (east) and policy 2 (west) accept it and NAT it to port1.
 
-<!-- TODO: replace with Lucidchart export (egress path): demo-uc-egress.png -->
-```
-   east instance ─► spoke VPC ─► TGW spoke_rt[east] ─► Connect (GRE) ─► gre-east
-                                                                         │ policy 1: SNAT
-                                                                         ▼
-                                                  port1 ─► IGW ─► internet (source = cluster EIP)
-```
+![Spoke internet egress through the primary FortiGate](demo-uc-egress.svg)
 
 ## Test
 

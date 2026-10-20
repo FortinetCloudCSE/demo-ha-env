@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" width="1200" height="680" role="img" aria-labelledby="t d">
+<title id="t">VRF test topology: default VRF 0, VRF 10 for east, VRF 20 for west</title>
+<desc id="d">port1 and port2 stay in the default VRF. gre-east is placed in VRF 10 and gre-west in VRF 20, while the GRE underlay runs over port2 in the default VRF to the TGW. Numbered markers show where the five test questions apply.</desc>
+<rect width="1200" height="680" fill="#ffffff"/>
+<text x="600.0" y="26" font-size="15" font-weight="700" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">VRF test topology on a live unit (site A primary)</text>
+<rect x="30" y="150" width="130" height="50" rx="22" fill="#eef2f6" stroke="#9aa9b8" stroke-width="1.5"/>
+<text x="95" y="180" font-size="13" font-weight="700" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">internet</text>
+<polyline points="160,175 280,175" fill="none" stroke="#3c6ea8" stroke-width="3" stroke-linejoin="round"/>
+<text x="95" y="218" font-size="10" font-weight="700" fill="#3c6ea8" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">S* 0.0.0.0/0</text>
+<text x="95" y="232" font-size="10" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">via 10.1.0.1</text>
+<rect x="240" y="60" width="680" height="480" rx="10" fill="#fdeceb" stroke="#c0392b" stroke-width="2"/>
+<text x="580" y="82" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">FortiGate primary</text>
+<rect x="260" y="100" width="220" height="420" rx="8" fill="#f4f7fa" stroke="#8aa0b4" stroke-width="1.8"/>
+<text x="370" y="120" font-size="12.5" font-weight="700" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">default VRF (0)</text>
+<rect x="520" y="100" width="170" height="300" rx="8" fill="#eaf2fb" stroke="#1f6fb5" stroke-width="1.8" stroke-dasharray="6 4"/>
+<text x="605" y="120" font-size="12.5" font-weight="700" fill="#1f6fb5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">VRF 10  (east)</text>
+<rect x="720" y="100" width="170" height="300" rx="8" fill="#fdf3e7" stroke="#d9822b" stroke-width="1.8" stroke-dasharray="6 4"/>
+<text x="805" y="120" font-size="12.5" font-weight="700" fill="#d9822b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">VRF 20  (west)</text>
+<rect x="280" y="150" width="180" height="62" rx="6" fill="#ffffff" stroke="#3c6ea8" stroke-width="2"/>
+<text x="292" y="170" font-size="12" font-weight="700" fill="#3c6ea8" text-anchor="start" font-family="Helvetica, Arial, sans-serif">port1  public</text>
+<text x="292" y="186" font-size="10.5" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">10.1.0.4  ·  cluster EIP</text>
+<text x="292" y="201" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">VIPs and NAT to the internet</text>
+<rect x="280" y="250" width="180" height="100" rx="6" fill="#ffffff" stroke="#c3ccd5" stroke-width="1.2"/>
+<text x="292" y="270" font-size="11" font-weight="700" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">routing table, VRF 0</text>
+<text x="292" y="288" font-size="9.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">C  10.1.0.0/24  port1</text>
+<text x="292" y="302" font-size="9.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">C  10.1.2.0/24  port2</text>
+<text x="292" y="316" font-size="9.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">S  10.254.1.0/24 via 10.1.2.1</text>
+<text x="292" y="330" font-size="9.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">B  10.1.10.0/24  gre-east</text>
+<text x="292" y="344" font-size="9.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">B  10.1.20.0/24  gre-west</text>
+<rect x="280" y="420" width="180" height="76" rx="6" fill="#ffffff" stroke="#3c6ea8" stroke-width="2"/>
+<text x="292" y="440" font-size="12" font-weight="700" fill="#3c6ea8" text-anchor="start" font-family="Helvetica, Arial, sans-serif">port2  private</text>
+<text x="292" y="456" font-size="10.5" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">10.1.2.4</text>
+<text x="292" y="471" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">GRE underlay to the TGW</text>
+<text x="292" y="485" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">static route via 10.1.2.1</text>
+<polyline points="160,175 280,175" fill="none" stroke="#3c6ea8" stroke-width="3" stroke-linejoin="round"/>
+<circle cx="280" cy="175" r="4" fill="#3c6ea8"/>
+<rect x="540" y="255" width="130" height="100" rx="6" fill="#ffffff" stroke="#1f6fb5" stroke-width="2"/>
+<text x="550" y="275" font-size="12" font-weight="700" fill="#1f6fb5" text-anchor="start" font-family="Helvetica, Arial, sans-serif">gre-east</text>
+<text x="550" y="291" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">169.254.6.1</text>
+<text x="550" y="306" font-size="10" font-weight="700" fill="#1f6fb5" text-anchor="start" font-family="Helvetica, Arial, sans-serif">set vrf 10</text>
+<text x="550" y="321" font-size="9.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">BGP neighbor joins the</text>
+<text x="550" y="334" font-size="9.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">VRF by set interface</text>
+<text x="550" y="347" font-size="9.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">underlay in VRF 0</text>
+<rect x="740" y="255" width="130" height="100" rx="6" fill="#ffffff" stroke="#d9822b" stroke-width="2"/>
+<text x="750" y="275" font-size="12" font-weight="700" fill="#d9822b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">gre-west</text>
+<text x="750" y="291" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">169.254.7.1</text>
+<text x="750" y="306" font-size="10" font-weight="700" fill="#d9822b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">set vrf 20</text>
+<text x="750" y="321" font-size="9.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">BGP neighbor joins the</text>
+<text x="750" y="334" font-size="9.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">VRF by set interface</text>
+<text x="750" y="347" font-size="9.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">underlay in VRF 0</text>
+<polyline points="605,355 605,440" fill="none" stroke="#1f6fb5" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="5 4"/>
+<polyline points="805,355 805,475" fill="none" stroke="#d9822b" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="5 4"/>
+<polyline points="460,440 1000,440" fill="none" stroke="#1f6fb5" stroke-width="4" stroke-linejoin="round"/>
+<polyline points="460,475 1000,475" fill="none" stroke="#d9822b" stroke-width="4" stroke-linejoin="round"/>
+<circle cx="460" cy="440" r="4" fill="#1f6fb5"/>
+<circle cx="460" cy="475" r="4" fill="#d9822b"/>
+<text x="520" y="432" font-size="10" font-weight="700" fill="#1f6fb5" text-anchor="start" font-family="Helvetica, Arial, sans-serif">GRE underlay 10.254.1.10</text>
+<text x="520" y="468" font-size="10" font-weight="700" fill="#d9822b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">GRE underlay 10.254.1.11</text>
+<polyline points="605,255 605,180 460,180" fill="none" stroke="#333b47" stroke-width="2" stroke-linejoin="round" stroke-dasharray="3 4"/>
+<text x="532" y="197" font-size="10" font-weight="700" fill="#333b47" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">egress to port1?</text>
+<rect x="1000" y="400" width="170" height="110" rx="8" fill="#e9f1fb" stroke="#3c6ea8" stroke-width="2"/>
+<text x="1085" y="424" font-size="13" font-weight="700" fill="#2a4f7a" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Transit Gateway</text>
+<text x="1085" y="442" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">10.254.1.0/24</text>
+<text x="1085" y="462" font-size="10.5" font-weight="400" fill="#1f6fb5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">east VPC 10.1.10.0/24</text>
+<text x="1085" y="478" font-size="10.5" font-weight="400" fill="#d9822b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">west VPC 10.1.20.0/24</text>
+<text x="1085" y="496" font-size="10" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">one Connect peer each</text>
+<circle cx="642" cy="398" r="10" fill="#333b47"/>
+<text x="642" y="402" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">1</text>
+<circle cx="683" cy="262" r="10" fill="#333b47"/>
+<text x="683" y="266" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">2</text>
+<circle cx="470" cy="408" r="10" fill="#333b47"/>
+<text x="470" y="412" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">3</text>
+<circle cx="575" cy="160" r="10" fill="#333b47"/>
+<text x="575" y="164" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">4</text>
+<circle cx="595" cy="160" r="10" fill="#333b47"/>
+<text x="595" y="164" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">5</text>
+<rect x="30" y="560" width="1140" height="100" rx="8" fill="#f4f7fa" stroke="#d3dbe3" stroke-width="1"/>
+<text x="46" y="580" font-size="11.5" font-weight="700" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Five questions, answered by hand before any Terraform change (a VRF exists once an interface has set vrf)</text>
+<circle cx="54" cy="595" r="10" fill="#333b47"/>
+<text x="54" y="599" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">1</text>
+<text x="70" y="599" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Can a GRE interface sit in a VRF while its underlay (port2) stays in VRF 0?</text>
+<circle cx="54" cy="613" r="10" fill="#333b47"/>
+<text x="54" y="617" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">2</text>
+<text x="70" y="617" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Can a BGP neighbor be placed in a VRF, and how?</text>
+<circle cx="54" cy="631" r="10" fill="#333b47"/>
+<text x="54" y="635" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">3</text>
+<text x="70" y="635" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Can a static route name a VRF, or use an exit interface in another VRF?</text>
+<circle cx="614" cy="595" r="10" fill="#333b47"/>
+<text x="614" y="599" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">4</text>
+<text x="630" y="599" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Can egress from a customer VRF reach port1 in the default VRF?</text>
+<circle cx="614" cy="613" r="10" fill="#333b47"/>
+<text x="614" y="617" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">5</text>
+<text x="630" y="617" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Can inbound VIP traffic on port1 reach a spoke through a GRE interface in a customer VRF?</text>
+</svg>

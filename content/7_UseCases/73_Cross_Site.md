@@ -8,14 +8,7 @@ weight: 3
 An east instance at site A reaches the east instance at site B through `gre-east-x`, which rides inside the IPsec tunnel. West
 uses `gre-west-x`.
 
-<!-- TODO: replace with Lucidchart export (cross-site path): demo-uc-crosssite.png -->
-```
-   site A east ─► TGW ─► gre-east ─► FortiGate A ─► gre-east-x ═► IPsec ═► FortiGate B ─► gre-east ─► TGW ─► site B east
-                              policy 3                                     policy 4 (on B)
-
-   site A west ─► TGW ─► gre-west ─► FortiGate A ─► gre-west-x ═► IPsec ═► FortiGate B ─► gre-west ─► TGW ─► site B west
-                              policy 5                                     policy 6 (on B)
-```
+![Cross-site traffic: east to east and west to west through GRE inside IPsec](demo-uc-crosssite.svg)
 
 ## Test
 

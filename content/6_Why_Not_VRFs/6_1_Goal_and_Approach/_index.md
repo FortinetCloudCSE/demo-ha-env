@@ -44,10 +44,4 @@ B   10.1.20.0/24   via 169.254.7.x, gre-west    (west spoke, learned by BGP)
 All interfaces were in the default VRF (0). There is no VRF object in FortiOS: a VRF exists once an interface has
 `set vrf <n>`.
 
-<!-- TODO: replace with Lucidchart export (VRF test topology): demo-vrf-topology.png -->
-```
-                       default VRF (0)                    VRF 10            VRF 20
-   internet ── port1 ── [ 10.1.0.4 ]
-                        port2 ── 10.1.2.4 ═ GRE underlay ══════ gre-east         gre-west
-                                                                 (east)           (west)
-```
+![VRF test topology: default VRF 0, VRF 10 for east, VRF 20 for west](demo-vrf-topology.svg)

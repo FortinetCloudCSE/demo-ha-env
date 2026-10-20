@@ -24,14 +24,7 @@ the internet that does not cross VRFs.
 | **B. A VDOM per customer** | Each customer is a separate VDOM with its own interfaces and policy. | Changes HA, FortiManager registration and the whole bootstrap template. Strongest isolation. |
 | **C. No internet through the firewall** | Keep the VRFs and the per-customer tunnels, give the spokes SSM VPC endpoints for access and drop the VIPs. | The spokes lose general internet egress |
 
-<!-- TODO: replace with Lucidchart export (option A): demo-vrf-port-per-customer.png -->
-```
-   Option A: one egress port per customer VRF
-
-   VRF 10:  gre-east ─► [ policy ] ─► port5 (VRF 10) ─► EIP-east ─► internet
-   VRF 20:  gre-west ─► [ policy ] ─► port6 (VRF 20) ─► EIP-west ─► internet
-   VRF 0:   port1 (cluster EIP), IPsec underlay, port2 (GRE underlay), port3
-```
+![Option A: one egress port and EIP per customer VRF](demo-vrf-port-per-customer.svg)
 
 **Recommendation if VRFs are required:** option A. Each customer would also get its own public address, which is often what
 a multi-customer design wants anyway.
