@@ -8,14 +8,7 @@ weight: 1
 The spoke VPCs have no IGW and no public addresses. Per-site VIPs on the cluster EIP forward a public TCP port to SSH on a
 spoke instance, limited to a set of admin source addresses.
 
-<!-- TODO: replace with Lucidchart export (VIP path): demo-uc-vip.png -->
-```
-   admin ──► cluster EIP:2222 ──► port1 ──DNAT──► 10.1.10.<host>:22
-                                    │
-                              policy 10+ (admin-src only, nat disable)
-                                    ▼
-                               gre-east ──► TGW ──► east spoke instance
-```
+![SSH VIP path from an admin to a spoke instance](demo-uc-vip.svg)
 
 ## Configuration
 

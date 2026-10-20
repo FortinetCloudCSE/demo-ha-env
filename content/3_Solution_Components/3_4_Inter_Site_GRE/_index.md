@@ -11,18 +11,7 @@ The two sites are joined by **one IPsec tunnel** between the cluster EIPs. Insid
 customer**: `gre-east-x` (GRE key 10) and `gre-west-x` (GRE key 20). East traffic to the other site only ever uses
 `gre-east-x`. West traffic only ever uses `gre-west-x`.
 
-<!-- TODO: replace with Lucidchart export (GRE inside IPsec): demo-intersite.png -->
-```
-   Site A FortiGate                                              Site B FortiGate
-   gre-east   ─┐                                                 ┌─ gre-east
-   gre-west   ─┤ policy 3/4/5/6                   policy 3/4/5/6 ├─ gre-west
-               ▼                                                 ▼
-   gre-east-x  ═══ 169.254.10.1 ◄──── GRE key 10 ────► 169.254.10.2 ═══ gre-east-x
-   gre-west-x  ═══ 169.254.20.1 ◄──── GRE key 20 ────► 169.254.20.2 ═══ gre-west-x
-                       │  both ride on 169.254.100.1 ◄──► 169.254.100.2
-                       ▼
-   to-site-b (IPsec, IKEv2, route-based)  ═════ port1 cluster EIP ◄───► cluster EIP ═════ to-site-a
-```
+![Per-customer GRE tunnels inside one IPsec tunnel](demo-intersite.svg)
 
 ## Why a tunnel per customer?
 

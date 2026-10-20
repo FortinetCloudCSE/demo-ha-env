@@ -16,28 +16,7 @@ The two sites are joined by one IPsec tunnel between the **cluster EIPs**. A sha
 TGW) holds FortiManager and FortiAnalyzer, and every FortiGate has a port4 interface in it (no EIP). Each FortiGate has an
 EIP on port3 (HA management and heartbeat) for admin access.
 
-<!-- TODO: replace with Lucidchart export (one site in detail): demo-site.png -->
-```
-                       Internet
-                          │ IGW
-        ┌─────────────────┴──────────────── Inspection VPC (site A, 10.1.0.0/21) ───┐
-        │   AZ1                                        AZ2                          │
-        │  ┌───────────────────────┐                  ┌───────────────────────┐     │
-        │  │ FortiGate PRIMARY     │◄── heartbeat ───►│ FortiGate SECONDARY   │     │
-        │  │ port1 public  (EIP)   │     UDP 730      │ port1 public          │     │
-        │  │ port2 private ─ GRE   │   (port3, ha-    │ port2 private         │     │
-        │  │ port3 ha-mgmt (EIP)   │    mgmt subnets) │ port3 ha-mgmt (EIP)   │     │
-        │  │ port4 (no EIP) ───────┼──┐               │ port4 (no EIP) ───────┼──┐  │
-        │  └──────┬────────────────┘  │               └───────────────────────┘  │  │
-        │         │ gre-east, gre-west│                                          │  │
-        └─────────┼───────────────────┼──────────────────────────────────────────┼──┘
-                  │ TGW Connect       │                                          │
-            ┌─────▼──────┐            └───────────────┐       ┌──────────────────┘
-            │    TGW     │                        Management VPC (10.99.0.0/24)
-            └──┬──────┬──┘                        FortiManager 10.99.0.14
-               │      │                           FortiAnalyzer 10.99.0.13
-          east VPC  west VPC
-```
+![One site in detail: FortiGate FGCP pair, Transit Gateway, spokes and management VPC](demo-site.svg)
 
 ## Traffic flows
 

@@ -14,17 +14,7 @@ Each FortiGate has two management-related interfaces with different jobs:
 | **port3** | inspection VPC, public ha-mgmt subnet | **yes** (one per unit) | heartbeat, config sync, the **HA management interface**, GUI and SSH, and the EC2 API calls that fail over AWS |
 | **port4** | management VPC (multi-VPC ENI) | **no** | FortiManager (FGFM) and FortiAnalyzer logging only |
 
-<!-- TODO: replace with Lucidchart export (management interfaces): demo-mgmt.png -->
-```
-        Inspection VPC (site A)                                        Management VPC 10.99.0.0/24
-   ┌───────────────────────────────────┐                          ┌──────────────────────────────────┐
-   │ port3 (EIP) ◄── admin GUI / SSH   │                          │ FortiManager  10.99.0.14         │
-   │   public ha-mgmt subnet, IGW      │                          │ FortiAnalyzer 10.99.0.13         │
-   │   heartbeat + sync + EC2 API      │                          │                                  │
-   │                                   │    multi-VPC ENI         │                                  │
-   │ port4 (no EIP, VRF 1, fgfm only) ─┼──────────────────────────┤  10.99.0.20 / .84 (port4 IPs)    │
-   └───────────────────────────────────┘                          └──────────────────────────────────┘
-```
+![Management interfaces: port3 for HA management and port4 to the management VPC](demo-mgmt.svg)
 
 ## Port3: HA management
 

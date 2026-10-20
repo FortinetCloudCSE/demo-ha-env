@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" width="1200" height="700" role="img" aria-labelledby="t d">
+<title id="t">Inspection VPC subnets and FortiGate interfaces in each availability zone</title>
+<desc id="d">Each AZ has public, private, ha-mgmt and TGW subnets. FortiGate port1, port2 and port3 attach to the public, private and ha-mgmt subnets. Port3 of the two units is joined by the HA link. Port4 of each unit goes to the management VPC.</desc>
+<rect width="1200" height="700" fill="#ffffff"/>
+<text x="600.0" y="28" font-size="15" font-weight="700" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Inspection VPC 10.1.0.0/21 (site A): eight /24 subnets, four per AZ</text>
+<rect x="30" y="50" width="510" height="510" rx="10" fill="#f4f7fa" stroke="#8aa0b4" stroke-width="1.5"/>
+<text x="46" y="74" font-size="13" font-weight="700" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">AZ1  ·  FortiGate primary  (HA priority 255)</text>
+<rect x="50" y="100" width="290" height="58" rx="8" fill="#ffffff" stroke="#3c6ea8" stroke-width="2"/>
+<rect x="50" y="100" width="8" height="58" rx="3" fill="#3c6ea8"/>
+<text x="66" y="122" font-size="12.5" font-weight="700" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">public  10.1.0.0/24</text>
+<text x="66" y="140" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">IGW route; cluster EIP on port1 (primary)</text>
+<rect x="50" y="172" width="290" height="58" rx="8" fill="#ffffff" stroke="#4a7fb8" stroke-width="2"/>
+<rect x="50" y="172" width="8" height="58" rx="3" fill="#4a7fb8"/>
+<text x="66" y="194" font-size="12.5" font-weight="700" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">private  10.1.2.0/24</text>
+<text x="66" y="212" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">GRE underlay to the TGW Connect peers</text>
+<rect x="50" y="244" width="290" height="58" rx="8" fill="#ffffff" stroke="#2f8f5b" stroke-width="2"/>
+<rect x="50" y="244" width="8" height="58" rx="3" fill="#2f8f5b"/>
+<text x="66" y="266" font-size="12.5" font-weight="700" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">ha-mgmt  10.1.4.0/24</text>
+<text x="66" y="284" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">public, IGW route; EIP on port3</text>
+<rect x="50" y="316" width="290" height="58" rx="8" fill="#ffffff" stroke="#8a96a3" stroke-width="2"/>
+<rect x="50" y="316" width="8" height="58" rx="3" fill="#8a96a3"/>
+<text x="66" y="338" font-size="12.5" font-weight="700" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">tgw  10.1.6.0/24</text>
+<text x="66" y="356" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">TGW attachment (Connect transport)</text>
+<rect x="380" y="100" width="140" height="214" rx="8" fill="#fdeceb" stroke="#c0392b" stroke-width="2"/>
+<text x="450" y="124" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">FortiGate</text>
+<text x="450" y="140" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">primary</text>
+<polyline points="340,129 380,129" fill="none" stroke="#3c6ea8" stroke-width="3" stroke-linejoin="round"/>
+<circle cx="380" cy="129" r="4" fill="#3c6ea8"/>
+<text x="360.0" y="123" font-size="10.5" font-weight="700" fill="#3c6ea8" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">port1</text>
+<text x="450" y="170" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif"></text>
+<polyline points="340,201 380,201" fill="none" stroke="#4a7fb8" stroke-width="3" stroke-linejoin="round"/>
+<circle cx="380" cy="201" r="4" fill="#4a7fb8"/>
+<text x="360.0" y="195" font-size="10.5" font-weight="700" fill="#4a7fb8" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">port2</text>
+<text x="450" y="242" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif"></text>
+<polyline points="340,273 380,273" fill="none" stroke="#2f8f5b" stroke-width="3" stroke-linejoin="round"/>
+<circle cx="380" cy="273" r="4" fill="#2f8f5b"/>
+<text x="360.0" y="267" font-size="10.5" font-weight="700" fill="#2f8f5b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">port3</text>
+<text x="450" y="314" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif"></text>
+<text x="450" y="153" font-size="11" font-weight="400" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">10.1.0.4</text>
+<text x="450" y="225" font-size="11" font-weight="400" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">10.1.2.4</text>
+<text x="450" y="297" font-size="11" font-weight="400" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">10.1.4.4</text>
+<polyline points="450,314 450,600" fill="none" stroke="#7a4ea3" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="6 4"/>
+<circle cx="450" cy="314" r="4" fill="#7a4ea3"/>
+<text x="442" y="334" font-size="10.5" font-weight="700" fill="#7a4ea3" text-anchor="end" font-family="Helvetica, Arial, sans-serif">port4  10.99.0.20</text>
+<text x="442" y="590" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="end" font-family="Helvetica, Arial, sans-serif">multi-VPC ENI, no EIP</text>
+<text x="50" y="400" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Addresses on port1 to port3 are pinned (host .4)</text>
+<text x="50" y="416" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">and set statically in FortiOS; no DHCP.</text>
+<text x="50" y="448" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">port4 is in the management VPC, same AZ as this unit.</text>
+<rect x="660" y="50" width="510" height="510" rx="10" fill="#f4f7fa" stroke="#8aa0b4" stroke-width="1.5"/>
+<text x="1154" y="74" font-size="13" font-weight="700" fill="#1d2733" text-anchor="end" font-family="Helvetica, Arial, sans-serif">AZ2  ·  FortiGate secondary  (HA priority 1)</text>
+<rect x="860" y="100" width="290" height="58" rx="8" fill="#ffffff" stroke="#3c6ea8" stroke-width="2"/>
+<rect x="1142" y="100" width="8" height="58" rx="3" fill="#3c6ea8"/>
+<text x="1134" y="122" font-size="12.5" font-weight="700" fill="#1d2733" text-anchor="end" font-family="Helvetica, Arial, sans-serif">public  10.1.1.0/24</text>
+<text x="1134" y="140" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="end" font-family="Helvetica, Arial, sans-serif">IGW route; takes the cluster EIP on failover</text>
+<rect x="860" y="172" width="290" height="58" rx="8" fill="#ffffff" stroke="#4a7fb8" stroke-width="2"/>
+<rect x="1142" y="172" width="8" height="58" rx="3" fill="#4a7fb8"/>
+<text x="1134" y="194" font-size="12.5" font-weight="700" fill="#1d2733" text-anchor="end" font-family="Helvetica, Arial, sans-serif">private  10.1.3.0/24</text>
+<text x="1134" y="212" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="end" font-family="Helvetica, Arial, sans-serif">GRE underlay to the TGW Connect peers</text>
+<rect x="860" y="244" width="290" height="58" rx="8" fill="#ffffff" stroke="#2f8f5b" stroke-width="2"/>
+<rect x="1142" y="244" width="8" height="58" rx="3" fill="#2f8f5b"/>
+<text x="1134" y="266" font-size="12.5" font-weight="700" fill="#1d2733" text-anchor="end" font-family="Helvetica, Arial, sans-serif">ha-mgmt  10.1.5.0/24</text>
+<text x="1134" y="284" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="end" font-family="Helvetica, Arial, sans-serif">public, IGW route; EIP on port3</text>
+<rect x="860" y="316" width="290" height="58" rx="8" fill="#ffffff" stroke="#8a96a3" stroke-width="2"/>
+<rect x="1142" y="316" width="8" height="58" rx="3" fill="#8a96a3"/>
+<text x="1134" y="338" font-size="12.5" font-weight="700" fill="#1d2733" text-anchor="end" font-family="Helvetica, Arial, sans-serif">tgw  10.1.7.0/24</text>
+<text x="1134" y="356" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="end" font-family="Helvetica, Arial, sans-serif">TGW attachment (Connect transport)</text>
+<rect x="680" y="100" width="140" height="214" rx="8" fill="#fdeceb" stroke="#c0392b" stroke-width="2"/>
+<text x="750" y="124" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">FortiGate</text>
+<text x="750" y="140" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">secondary</text>
+<polyline points="860,129 820,129" fill="none" stroke="#3c6ea8" stroke-width="3" stroke-linejoin="round"/>
+<circle cx="820" cy="129" r="4" fill="#3c6ea8"/>
+<text x="840.0" y="123" font-size="10.5" font-weight="700" fill="#3c6ea8" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">port1</text>
+<text x="750" y="170" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif"></text>
+<polyline points="860,201 820,201" fill="none" stroke="#4a7fb8" stroke-width="3" stroke-linejoin="round"/>
+<circle cx="820" cy="201" r="4" fill="#4a7fb8"/>
+<text x="840.0" y="195" font-size="10.5" font-weight="700" fill="#4a7fb8" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">port2</text>
+<text x="750" y="242" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif"></text>
+<polyline points="860,273 820,273" fill="none" stroke="#2f8f5b" stroke-width="3" stroke-linejoin="round"/>
+<circle cx="820" cy="273" r="4" fill="#2f8f5b"/>
+<text x="840.0" y="267" font-size="10.5" font-weight="700" fill="#2f8f5b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">port3</text>
+<text x="750" y="314" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif"></text>
+<text x="750" y="153" font-size="11" font-weight="400" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">10.1.1.4</text>
+<text x="750" y="225" font-size="11" font-weight="400" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">10.1.3.4</text>
+<text x="750" y="297" font-size="11" font-weight="400" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">10.1.5.4</text>
+<polyline points="750,314 750,600" fill="none" stroke="#7a4ea3" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="6 4"/>
+<circle cx="750" cy="314" r="4" fill="#7a4ea3"/>
+<text x="758" y="334" font-size="10.5" font-weight="700" fill="#7a4ea3" text-anchor="start" font-family="Helvetica, Arial, sans-serif">port4  10.99.0.84</text>
+<text x="758" y="590" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">multi-VPC ENI, no EIP</text>
+<text x="1150" y="400" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="end" font-family="Helvetica, Arial, sans-serif">Addresses on port1 to port3 are pinned (host .4)</text>
+<text x="1150" y="416" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="end" font-family="Helvetica, Arial, sans-serif">and set statically in FortiOS; no DHCP.</text>
+<text x="1150" y="448" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="end" font-family="Helvetica, Arial, sans-serif">port4 is in the management VPC, same AZ as this unit.</text>
+<polyline points="520,273 680,273" fill="none" stroke="#2f8f5b" stroke-width="3.5" stroke-linejoin="round"/>
+<circle cx="520" cy="273" r="4" fill="#2f8f5b"/>
+<circle cx="680" cy="273" r="4" fill="#2f8f5b"/>
+<text x="600" y="252" font-size="11.5" font-weight="700" fill="#2f8f5b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">HA link (port3)</text>
+<text x="600" y="294" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">unicast heartbeat</text>
+<text x="600" y="309" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">UDP 730</text>
+<text x="600" y="324" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">config sync 703</text>
+<text x="600" y="339" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">session pickup</text>
+<polyline points="520,129 680,129" fill="none" stroke="#3c6ea8" stroke-width="2" stroke-linejoin="round" stroke-dasharray="2 5"/>
+<text x="600" y="120" font-size="10.5" font-weight="700" fill="#3c6ea8" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">cluster EIP</text>
+<text x="600" y="148" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">moves on failover</text>
+<rect x="30" y="600" width="1140" height="76" rx="8" fill="#f6f1fa" stroke="#7a4ea3" stroke-width="2"/>
+<text x="46" y="622" font-size="13" font-weight="700" fill="#7a4ea3" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Management VPC  10.99.0.0/24</text>
+<text x="46" y="640" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">own IGW, attached to neither TGW</text>
+<text x="46" y="656" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">port4 carries FGFM and logs only</text>
+<rect x="470" y="618" width="180" height="44" rx="8" fill="#ffffff" stroke="#7a4ea3" stroke-width="1.5"/>
+<text x="560" y="636" font-size="12" font-weight="700" fill="#7a4ea3" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">FortiManager</text>
+<text x="560" y="652" font-size="11" font-weight="400" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">10.99.0.14</text>
+<rect x="690" y="618" width="180" height="44" rx="8" fill="#ffffff" stroke="#7a4ea3" stroke-width="1.5"/>
+<text x="780" y="636" font-size="12" font-weight="700" fill="#7a4ea3" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">FortiAnalyzer</text>
+<text x="780" y="652" font-size="11" font-weight="400" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">10.99.0.13</text>
+</svg>

@@ -11,18 +11,7 @@ Each spoke VPC reaches the firewall through **TGW Connect**: a GRE tunnel with e
 port2. There is no inspection-VPC routing and no Gateway Load Balancer. Each spoke (east, west) has its own Connect attachment
 and its own Connect peer, which is what makes the customers separable at the TGW.
 
-<!-- TODO: replace with Lucidchart export (TGW Connect): demo-connect.png -->
-```
-   east VPC ──► TGW spoke_rt[east]  ◄── BGP routes ──┐
-                    ▲                                │
-   TGW connect_rt[east] ◄── east CIDR                │      FortiGate primary
-                    │                                └──────  gre-east  (AS 65001)
-   Connect attachment [east] ═══ GRE 10.254.x.10 ═════════════ port2
-                                                              
-   west VPC ──► TGW spoke_rt[west]  ◄── BGP routes ──┐
-   TGW connect_rt[west] ◄── west CIDR                └──────  gre-west
-   Connect attachment [west] ═══ GRE 10.254.x.11 ═════════════ port2
-```
+![TGW Connect: route tables, Connect attachments and GRE tunnels per customer](demo-connect.svg)
 
 The inspection VPC's regular TGW attachment still exists, but only as the **transport** that AWS requires for Connect. A
 `transport` route table is associated with it and stays empty, so nothing ever routes through it.

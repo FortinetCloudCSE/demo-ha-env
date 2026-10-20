@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" width="1200" height="680" role="img" aria-labelledby="t d">
+<title id="t">Management interfaces: port3 for HA management and port4 to the management VPC</title>
+<desc id="d">Each FortiGate has port3 in a public ha-mgmt subnet with its own EIP for GUI, SSH, heartbeat and EC2 API calls, and port4 as a multi-VPC ENI in the management VPC with no EIP, used only for FortiManager and FortiAnalyzer.</desc>
+<rect width="1200" height="680" fill="#ffffff"/>
+<text x="600.0" y="26" font-size="15" font-weight="700" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Two management paths per FortiGate (site A shown; site B is identical)</text>
+<rect x="30" y="50" width="180" height="50" rx="8" fill="#ffffff" stroke="#2f8f5b" stroke-width="2"/>
+<text x="120" y="72" font-size="13" font-weight="700" fill="#2f8f5b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Admin</text>
+<text x="120" y="88" font-size="10" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">source in management_cidr_sg</text>
+<polyline points="210,75 250,75" fill="none" stroke="#2f8f5b" stroke-width="2.5" stroke-linejoin="round"/>
+<rect x="250" y="50" width="130" height="50" rx="22" fill="#eef2f6" stroke="#9aa9b8" stroke-width="1.5"/>
+<text x="315" y="80" font-size="13" font-weight="700" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Internet</text>
+<polyline points="315,100 315,112" fill="none" stroke="#5b6b7b" stroke-width="2" stroke-linejoin="round"/>
+<rect x="580" y="50" width="170" height="50" rx="8" fill="#ffffff" stroke="#5b6b7b" stroke-width="1.5"/>
+<text x="665" y="72" font-size="12" font-weight="700" fill="#5b6b7b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">AWS EC2 API</text>
+<text x="665" y="88" font-size="10" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">public endpoint</text>
+<polyline points="665,100 665,112" fill="none" stroke="#5b6b7b" stroke-width="2" stroke-linejoin="round"/>
+<rect x="250" y="112" width="500" height="24" rx="6" fill="#e7ecf1" stroke="#5b6b7b" stroke-width="2"/>
+<text x="500" y="129" font-size="12" font-weight="700" fill="#5b6b7b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Internet gateway (IGW)</text>
+<rect x="250" y="150" width="500" height="320" rx="8" fill="#f4f7fa" stroke="#8aa0b4" stroke-width="1.5"/>
+<text x="738" y="462" font-size="11.5" font-weight="700" fill="#1d2733" text-anchor="end" font-family="Helvetica, Arial, sans-serif">Inspection VPC 10.1.0.0/21</text>
+<rect x="270" y="190" width="200" height="250" rx="8" fill="#fdeceb" stroke="#c0392b" stroke-width="2"/>
+<text x="282" y="212" font-size="13" font-weight="700" fill="#c0392b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">FortiGate primary</text>
+<text x="282" y="227" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">AZ1</text>
+<rect x="280" y="240" width="6" height="84" rx="2" fill="#2f8f5b"/>
+<text x="294" y="256" font-size="11.5" font-weight="700" fill="#2f8f5b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">port3  10.1.4.4</text>
+<text x="294" y="272" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">ha-mgmt subnet 10.1.4.0/24</text>
+<text x="294" y="287" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">HA mgmt, GUI, SSH, heartbeat,</text>
+<text x="294" y="300" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">config sync, EC2 API calls</text>
+<text x="294" y="316" font-size="10" font-weight="700" fill="#2f8f5b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">own EIP; stays with this unit</text>
+<rect x="280" y="338" width="6" height="84" rx="2" fill="#7a4ea3"/>
+<text x="294" y="354" font-size="11.5" font-weight="700" fill="#7a4ea3" text-anchor="start" font-family="Helvetica, Arial, sans-serif">port4  10.99.0.20</text>
+<text x="294" y="370" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">multi-VPC ENI, VRF 1, no EIP</text>
+<text x="294" y="385" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">allowaccess fgfm only</text>
+<text x="294" y="399" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">static route to 10.99.0.0/24</text>
+<text x="294" y="413" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">dedicated-to management</text>
+<polyline points="370,136 370,190" fill="none" stroke="#2f8f5b" stroke-width="3" stroke-linejoin="round"/>
+<circle cx="370" cy="190" r="4" fill="#2f8f5b"/>
+<text x="378" y="160" font-size="10.5" font-weight="700" fill="#2f8f5b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">port3 EIP</text>
+<polyline points="370,440 370,520" fill="none" stroke="#7a4ea3" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="6 4"/>
+<circle cx="370" cy="440" r="4" fill="#7a4ea3"/>
+<rect x="540" y="190" width="200" height="250" rx="8" fill="#fdeceb" stroke="#c0392b" stroke-width="2"/>
+<text x="552" y="212" font-size="13" font-weight="700" fill="#c0392b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">FortiGate secondary</text>
+<text x="552" y="227" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">AZ2</text>
+<rect x="550" y="240" width="6" height="84" rx="2" fill="#2f8f5b"/>
+<text x="564" y="256" font-size="11.5" font-weight="700" fill="#2f8f5b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">port3  10.1.5.4</text>
+<text x="564" y="272" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">ha-mgmt subnet 10.1.5.0/24</text>
+<text x="564" y="287" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">HA mgmt, GUI, SSH, heartbeat,</text>
+<text x="564" y="300" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">config sync, EC2 API calls</text>
+<text x="564" y="316" font-size="10" font-weight="700" fill="#2f8f5b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">own EIP; stays with this unit</text>
+<rect x="550" y="338" width="6" height="84" rx="2" fill="#7a4ea3"/>
+<text x="564" y="354" font-size="11.5" font-weight="700" fill="#7a4ea3" text-anchor="start" font-family="Helvetica, Arial, sans-serif">port4  10.99.0.84</text>
+<text x="564" y="370" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">multi-VPC ENI, VRF 1, no EIP</text>
+<text x="564" y="385" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">allowaccess fgfm only</text>
+<text x="564" y="399" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">static route to 10.99.0.0/24</text>
+<text x="564" y="413" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">dedicated-to management</text>
+<polyline points="640,136 640,190" fill="none" stroke="#2f8f5b" stroke-width="3" stroke-linejoin="round"/>
+<circle cx="640" cy="190" r="4" fill="#2f8f5b"/>
+<text x="648" y="160" font-size="10.5" font-weight="700" fill="#2f8f5b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">port3 EIP</text>
+<polyline points="640,440 640,520" fill="none" stroke="#7a4ea3" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="6 4"/>
+<circle cx="640" cy="440" r="4" fill="#7a4ea3"/>
+<polyline points="470,282 540,282" fill="none" stroke="#2f8f5b" stroke-width="3.5" stroke-linejoin="round"/>
+<circle cx="470" cy="282" r="4" fill="#2f8f5b"/>
+<circle cx="540" cy="282" r="4" fill="#2f8f5b"/>
+<text x="505" y="270" font-size="10.5" font-weight="700" fill="#2f8f5b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">HA link</text>
+<text x="505" y="300" font-size="9.5" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">UDP 730</text>
+<text x="505" y="312" font-size="9.5" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">sync 703</text>
+<polyline points="370,520 850,520" fill="none" stroke="#7a4ea3" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="6 4"/>
+<circle cx="850" cy="520" r="4" fill="#7a4ea3"/>
+<text x="600" y="510" font-size="10.5" font-weight="700" fill="#7a4ea3" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">FGFM (TCP 541) and logs (TCP 514) only</text>
+<text x="600" y="538" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">no admin access, no internet path</text>
+<rect x="850" y="330" width="320" height="290" rx="8" fill="#f6f1fa" stroke="#7a4ea3" stroke-width="2"/>
+<text x="866" y="352" font-size="13" font-weight="700" fill="#7a4ea3" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Management VPC  10.99.0.0/24</text>
+<text x="866" y="368" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">own IGW, attached to neither TGW</text>
+<rect x="870" y="388" width="280" height="66" rx="8" fill="#ffffff" stroke="#7a4ea3" stroke-width="2"/>
+<text x="884" y="412" font-size="13" font-weight="700" fill="#7a4ea3" text-anchor="start" font-family="Helvetica, Arial, sans-serif">FortiManager</text>
+<text x="884" y="430" font-size="11" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">10.99.0.14  ·  FGFM, device management</text>
+<text x="884" y="445" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">own EIP for GUI and SSH</text>
+<rect x="870" y="468" width="280" height="66" rx="8" fill="#ffffff" stroke="#7a4ea3" stroke-width="2"/>
+<text x="884" y="492" font-size="13" font-weight="700" fill="#7a4ea3" text-anchor="start" font-family="Helvetica, Arial, sans-serif">FortiAnalyzer</text>
+<text x="884" y="510" font-size="11" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">10.99.0.13  ·  logging</text>
+<text x="884" y="525" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">own EIP for GUI and SSH</text>
+<text x="866" y="560" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">AZ1 subnet holds FortiManager, FortiAnalyzer and</text>
+<text x="866" y="574" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">the primary's port4. The secondary's port4 is in</text>
+<text x="866" y="588" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">the AZ2 subnet, so it needs the static route.</text>
+<rect x="250" y="560" width="500" height="90" rx="8" fill="#f4f7fa" stroke="#d3dbe3" stroke-width="1"/>
+<text x="264" y="582" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Failover moves only the cluster EIP (port1). Each port3 EIP stays with its unit.</text>
+<text x="264" y="598" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">port4 cannot be the HA management port: FortiOS then refuses it as a source</text>
+<text x="264" y="614" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">interface for FortiManager and FortiAnalyzer.</text>
+<text x="264" y="630" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">dedicated-to management is set last in the bootstrap (the template ends with yend).</text>
+</svg>

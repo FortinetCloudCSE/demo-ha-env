@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 560" width="1240" height="560" role="img" aria-labelledby="t d">
+<title id="t">SSH VIP path from an admin to a spoke instance</title>
+<desc id="d">An admin connects to the cluster EIP on TCP 2222 or 2223. The FortiGate VIP rewrites the destination to the east or west spoke instance on port 22, an admin-source-only policy with NAT disabled sends it out gre-east or gre-west to the TGW and on to the spoke instance.</desc>
+<defs><marker id="ar" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#5b6b7b"/></marker></defs>
+<rect width="1240" height="560" fill="#ffffff"/>
+<text x="620.0" y="26" font-size="15" font-weight="700" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">SSH to a spoke instance through a VIP on the cluster EIP (site A shown)</text>
+<rect x="30" y="245" width="150" height="70" rx="8" fill="#ffffff" stroke="#2f8f5b" stroke-width="2"/>
+<text x="105" y="268" font-size="13" font-weight="700" fill="#2f8f5b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Admin</text>
+<text x="105" y="285" font-size="10.5" font-weight="400" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">203.0.113.10/32</text>
+<text x="105" y="300" font-size="10" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">address object admin-src</text>
+<polyline points="180,280 215,280" fill="none" stroke="#2f8f5b" stroke-width="3" stroke-linejoin="round"/>
+<rect x="215" y="250" width="110" height="60" rx="24" fill="#eef2f6" stroke="#9aa9b8" stroke-width="1.5"/>
+<text x="270" y="285" font-size="13" font-weight="700" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Internet</text>
+<polyline points="325,280 390,280" fill="none" stroke="#3c6ea8" stroke-width="3" stroke-linejoin="round" marker-end="url(#ar)"/>
+<text x="358" y="268" font-size="10" font-weight="700" fill="#1f6fb5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">TCP 2222</text>
+<text x="358" y="296" font-size="10" font-weight="700" fill="#d9822b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">or 2223</text>
+<rect x="390" y="60" width="520" height="420" rx="10" fill="#fdeceb" stroke="#c0392b" stroke-width="2"/>
+<text x="650" y="82" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">FortiGate primary</text>
+<rect x="404" y="230" width="120" height="100" rx="6" fill="#ffffff" stroke="#3c6ea8" stroke-width="2"/>
+<text x="414" y="250" font-size="12" font-weight="700" fill="#3c6ea8" text-anchor="start" font-family="Helvetica, Arial, sans-serif">port1</text>
+<text x="414" y="266" font-size="10.5" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">10.1.0.4</text>
+<text x="414" y="282" font-size="10.5" font-weight="700" fill="#3c6ea8" text-anchor="start" font-family="Helvetica, Arial, sans-serif">cluster EIP</text>
+<text x="414" y="298" font-size="9.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">security group:</text>
+<text x="414" y="311" font-size="9.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">public_ingress_cidrs</text>
+<polyline points="524,280 545,280 545,160 565,160" fill="none" stroke="#1f6fb5" stroke-width="3" stroke-linejoin="round" marker-end="url(#ar)"/>
+<rect x="565" y="98" width="220" height="124" rx="8" fill="#ffffff" stroke="#1f6fb5" stroke-width="2"/>
+<text x="577" y="120" font-size="12" font-weight="700" fill="#1f6fb5" text-anchor="start" font-family="Helvetica, Arial, sans-serif">vip-ssh-a-east</text>
+<text x="577" y="138" font-size="10.5" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">EIP:2222  DNAT to 10.1.10.132:22</text>
+<text x="577" y="156" font-size="10.5" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">policy 10+  port1 to gre-east</text>
+<text x="577" y="174" font-size="10.5" font-weight="700" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">source: admin-src only</text>
+<text x="577" y="192" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">nat disable (169.254.x is not</text>
+<text x="577" y="206" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">routable from the spokes)</text>
+<polyline points="785,160 810,160" fill="none" stroke="#1f6fb5" stroke-width="3" stroke-linejoin="round"/>
+<rect x="810" y="134" width="90" height="52" rx="6" fill="#ffffff" stroke="#1f6fb5" stroke-width="2"/>
+<text x="855" y="156" font-size="12" font-weight="700" fill="#1f6fb5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">gre-east</text>
+<text x="855" y="172" font-size="10" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">GRE, BGP</text>
+<polyline points="900,160 960,160" fill="none" stroke="#1f6fb5" stroke-width="4" stroke-linejoin="round" marker-end="url(#ar)"/>
+<polyline points="1040,160 1085,160" fill="none" stroke="#1f6fb5" stroke-width="4" stroke-linejoin="round" marker-end="url(#ar)"/>
+<rect x="1085" y="110" width="135" height="100" rx="8" fill="#ffffff" stroke="#1f6fb5" stroke-width="2"/>
+<text x="1097" y="132" font-size="12" font-weight="700" fill="#1f6fb5" text-anchor="start" font-family="Helvetica, Arial, sans-serif">East spoke</text>
+<text x="1097" y="150" font-size="11" font-weight="700" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">10.1.10.132:22</text>
+<text x="1097" y="168" font-size="9.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">SG: SSH from anywhere</text>
+<text x="1097" y="182" font-size="9.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">no IGW, no public IP</text>
+<polyline points="524,280 545,280 545,400 565,400" fill="none" stroke="#d9822b" stroke-width="3" stroke-linejoin="round" marker-end="url(#ar)"/>
+<rect x="565" y="338" width="220" height="124" rx="8" fill="#ffffff" stroke="#d9822b" stroke-width="2"/>
+<text x="577" y="360" font-size="12" font-weight="700" fill="#d9822b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">vip-ssh-a-west</text>
+<text x="577" y="378" font-size="10.5" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">EIP:2223  DNAT to 10.1.20.132:22</text>
+<text x="577" y="396" font-size="10.5" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">policy 10+  port1 to gre-west</text>
+<text x="577" y="414" font-size="10.5" font-weight="700" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">source: admin-src only</text>
+<text x="577" y="432" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">nat disable (169.254.x is not</text>
+<text x="577" y="446" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">routable from the spokes)</text>
+<polyline points="785,400 810,400" fill="none" stroke="#d9822b" stroke-width="3" stroke-linejoin="round"/>
+<rect x="810" y="374" width="90" height="52" rx="6" fill="#ffffff" stroke="#d9822b" stroke-width="2"/>
+<text x="855" y="396" font-size="12" font-weight="700" fill="#d9822b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">gre-west</text>
+<text x="855" y="412" font-size="10" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">GRE, BGP</text>
+<polyline points="900,400 960,400" fill="none" stroke="#d9822b" stroke-width="4" stroke-linejoin="round" marker-end="url(#ar)"/>
+<polyline points="1040,400 1085,400" fill="none" stroke="#d9822b" stroke-width="4" stroke-linejoin="round" marker-end="url(#ar)"/>
+<rect x="1085" y="350" width="135" height="100" rx="8" fill="#ffffff" stroke="#d9822b" stroke-width="2"/>
+<text x="1097" y="372" font-size="12" font-weight="700" fill="#d9822b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">West spoke</text>
+<text x="1097" y="390" font-size="11" font-weight="700" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">10.1.20.132:22</text>
+<text x="1097" y="408" font-size="9.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">SG: SSH from anywhere</text>
+<text x="1097" y="422" font-size="9.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">no IGW, no public IP</text>
+<rect x="960" y="120" width="80" height="320" rx="8" fill="#e9f1fb" stroke="#3c6ea8" stroke-width="2"/>
+<text x="1000" y="276" font-size="12" font-weight="700" fill="#2a4f7a" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Transit</text>
+<text x="1000" y="292" font-size="12" font-weight="700" fill="#2a4f7a" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Gateway</text>
+<rect x="30" y="500" width="1180" height="48" rx="8" fill="#f4f7fa" stroke="#d3dbe3" stroke-width="1"/>
+<text x="46" y="520" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">The reply follows the same session back out port1. The FortiGate policy decides who gets in; a SASE tunnel changes your source address, so the policy then drops it.</text>
+<text x="46" y="537" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Test: ssh -p 2222 ec2-user@&lt;site A cluster EIP&gt; reaches east, port 2223 reaches west.</text>
+</svg>

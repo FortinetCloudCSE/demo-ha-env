@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" width="1200" height="700" role="img" aria-labelledby="t d">
+<title id="t">TGW Connect: per-customer route tables, Connect attachments and GRE tunnels to the primary FortiGate</title>
+<desc id="d">Each spoke VPC has a spoke route table and a connect route table on the Transit Gateway and its own Connect attachment. A GRE tunnel with eBGP runs from each Connect attachment to the primary FortiGate port2, as gre-east and gre-west.</desc>
+<rect width="1200" height="700" fill="#ffffff"/>
+<text x="600.0" y="26" font-size="15" font-weight="700" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">One Connect attachment, two route tables and one GRE tunnel per customer (site A shown)</text>
+<rect x="250" y="50" width="480" height="560" rx="10" fill="#f3f7fc" stroke="#3c6ea8" stroke-width="2"/>
+<text x="266" y="72" font-size="13" font-weight="700" fill="#2a4f7a" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Transit Gateway  10.254.1.0/24  ·  AS 64512</text>
+<rect x="910" y="50" width="260" height="560" rx="10" fill="#fdeceb" stroke="#c0392b" stroke-width="2"/>
+<text x="1040" y="74" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">FortiGate primary</text>
+<text x="1040" y="92" font-size="11" font-weight="400" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">port2  10.1.2.4  (GRE underlay)</text>
+<text x="1040" y="108" font-size="10" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">static route to the TGW block via port2</text>
+<rect x="30" y="100" width="170" height="170" rx="8" fill="#ffffff" stroke="#1f6fb5" stroke-width="2"/>
+<text x="45" y="124" font-size="13" font-weight="700" fill="#1f6fb5" text-anchor="start" font-family="Helvetica, Arial, sans-serif">East VPC</text>
+<text x="45" y="142" font-size="11" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">10.1.10.0/24</text>
+<text x="45" y="164" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">test instance</text>
+<text x="45" y="179" font-size="10.5" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">10.1.10.132</text>
+<text x="45" y="210" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">no IGW; default route</text>
+<text x="45" y="224" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">comes from the TGW</text>
+<rect x="285" y="100" width="190" height="100" rx="6" fill="#ffffff" stroke="#1f6fb5" stroke-width="1.8"/>
+<text x="297" y="120" font-size="12" font-weight="700" fill="#1f6fb5" text-anchor="start" font-family="Helvetica, Arial, sans-serif">spoke_rt [east]</text>
+<text x="297" y="138" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">associated: spoke attachment</text>
+<text x="297" y="154" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">learns by BGP: default route</text>
+<text x="297" y="168" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">and the remote-site CIDRs</text>
+<rect x="285" y="220" width="190" height="90" rx="6" fill="#ffffff" stroke="#1f6fb5" stroke-width="1.8"/>
+<text x="297" y="240" font-size="12" font-weight="700" fill="#1f6fb5" text-anchor="start" font-family="Helvetica, Arial, sans-serif">connect_rt [east]</text>
+<text x="297" y="258" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">associated: Connect attachment</text>
+<text x="297" y="274" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">learns only 10.1.10.0/24</text>
+<text x="297" y="288" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">(from the spoke attachment)</text>
+<rect x="540" y="130" width="170" height="130" rx="6" fill="#e9f1fb" stroke="#1f6fb5" stroke-width="2.2"/>
+<text x="552" y="152" font-size="12" font-weight="700" fill="#1f6fb5" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Connect attachment</text>
+<text x="552" y="168" font-size="10.5" font-weight="700" fill="#1f6fb5" text-anchor="start" font-family="Helvetica, Arial, sans-serif">[east]  one peer</text>
+<text x="552" y="188" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">GRE outer 10.254.1.10</text>
+<text x="552" y="204" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">inside 169.254.6.0/29</text>
+<text x="552" y="220" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">TGW BGP peers .2 and .3</text>
+<text x="552" y="236" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">BGP is required, not static</text>
+<polyline points="200,150 285,150" fill="none" stroke="#1f6fb5" stroke-width="2.5" stroke-linejoin="round"/>
+<text x="242" y="142" font-size="9.5" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">VPC attach.</text>
+<polyline points="200,265 285,265" fill="none" stroke="#1f6fb5" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="6 4"/>
+<text x="242" y="257" font-size="9.5" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">CIDR propagated</text>
+<polyline points="540,165 475,165" fill="none" stroke="#1f6fb5" stroke-width="2" stroke-linejoin="round"/>
+<text x="507" y="157" font-size="9.5" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">BGP routes</text>
+<polyline points="475,240 540,240" fill="none" stroke="#1f6fb5" stroke-width="2" stroke-linejoin="round"/>
+<text x="507" y="232" font-size="9.5" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">assoc.</text>
+<polyline points="710,195 930,195" fill="none" stroke="#1f6fb5" stroke-width="4" stroke-linejoin="round"/>
+<circle cx="710" cy="195" r="4" fill="#1f6fb5"/>
+<circle cx="930" cy="195" r="4" fill="#1f6fb5"/>
+<text x="820" y="173" font-size="11.5" font-weight="700" fill="#1f6fb5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">GRE + eBGP</text>
+<text x="820" y="187" font-size="10" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">10.254.1.10 to 10.1.2.4</text>
+<rect x="930" y="120" width="220" height="150" rx="6" fill="#ffffff" stroke="#1f6fb5" stroke-width="2"/>
+<text x="942" y="142" font-size="12.5" font-weight="700" fill="#1f6fb5" text-anchor="start" font-family="Helvetica, Arial, sans-serif">gre-east</text>
+<text x="942" y="160" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">ip 169.254.6.1, remote 169.254.6.2</text>
+<text x="942" y="176" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">mtu 1400</text>
+<text x="942" y="194" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">eBGP AS 65001, two neighbors</text>
+<text x="942" y="210" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">(169.254.6.2 and 169.254.6.3)</text>
+<text x="942" y="228" font-size="10" font-weight="700" fill="#1f6fb5" text-anchor="start" font-family="Helvetica, Arial, sans-serif">default-originate</text>
+<text x="942" y="244" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">prefix-list-out: remote CIDR</text>
+<text x="942" y="258" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">and 0.0.0.0/0</text>
+<rect x="30" y="365" width="170" height="170" rx="8" fill="#ffffff" stroke="#d9822b" stroke-width="2"/>
+<text x="45" y="389" font-size="13" font-weight="700" fill="#d9822b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">West VPC</text>
+<text x="45" y="407" font-size="11" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">10.1.20.0/24</text>
+<text x="45" y="429" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">test instance</text>
+<text x="45" y="444" font-size="10.5" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">10.1.20.132</text>
+<text x="45" y="475" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">no IGW; default route</text>
+<text x="45" y="489" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">comes from the TGW</text>
+<rect x="285" y="365" width="190" height="100" rx="6" fill="#ffffff" stroke="#d9822b" stroke-width="1.8"/>
+<text x="297" y="385" font-size="12" font-weight="700" fill="#d9822b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">spoke_rt [west]</text>
+<text x="297" y="403" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">associated: spoke attachment</text>
+<text x="297" y="419" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">learns by BGP: default route</text>
+<text x="297" y="433" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">and the remote-site CIDRs</text>
+<rect x="285" y="485" width="190" height="90" rx="6" fill="#ffffff" stroke="#d9822b" stroke-width="1.8"/>
+<text x="297" y="505" font-size="12" font-weight="700" fill="#d9822b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">connect_rt [west]</text>
+<text x="297" y="523" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">associated: Connect attachment</text>
+<text x="297" y="539" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">learns only 10.1.20.0/24</text>
+<text x="297" y="553" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">(from the spoke attachment)</text>
+<rect x="540" y="395" width="170" height="130" rx="6" fill="#e9f1fb" stroke="#d9822b" stroke-width="2.2"/>
+<text x="552" y="417" font-size="12" font-weight="700" fill="#d9822b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Connect attachment</text>
+<text x="552" y="433" font-size="10.5" font-weight="700" fill="#d9822b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">[west]  one peer</text>
+<text x="552" y="453" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">GRE outer 10.254.1.11</text>
+<text x="552" y="469" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">inside 169.254.7.0/29</text>
+<text x="552" y="485" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">TGW BGP peers .2 and .3</text>
+<text x="552" y="501" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">BGP is required, not static</text>
+<polyline points="200,415 285,415" fill="none" stroke="#d9822b" stroke-width="2.5" stroke-linejoin="round"/>
+<text x="242" y="407" font-size="9.5" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">VPC attach.</text>
+<polyline points="200,530 285,530" fill="none" stroke="#d9822b" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="6 4"/>
+<text x="242" y="522" font-size="9.5" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">CIDR propagated</text>
+<polyline points="540,430 475,430" fill="none" stroke="#d9822b" stroke-width="2" stroke-linejoin="round"/>
+<text x="507" y="422" font-size="9.5" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">BGP routes</text>
+<polyline points="475,505 540,505" fill="none" stroke="#d9822b" stroke-width="2" stroke-linejoin="round"/>
+<text x="507" y="497" font-size="9.5" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">assoc.</text>
+<polyline points="710,460 930,460" fill="none" stroke="#d9822b" stroke-width="4" stroke-linejoin="round"/>
+<circle cx="710" cy="460" r="4" fill="#d9822b"/>
+<circle cx="930" cy="460" r="4" fill="#d9822b"/>
+<text x="820" y="438" font-size="11.5" font-weight="700" fill="#d9822b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">GRE + eBGP</text>
+<text x="820" y="452" font-size="10" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">10.254.1.11 to 10.1.2.4</text>
+<rect x="930" y="385" width="220" height="150" rx="6" fill="#ffffff" stroke="#d9822b" stroke-width="2"/>
+<text x="942" y="407" font-size="12.5" font-weight="700" fill="#d9822b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">gre-west</text>
+<text x="942" y="425" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">ip 169.254.7.1, remote 169.254.7.2</text>
+<text x="942" y="441" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">mtu 1400</text>
+<text x="942" y="459" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">eBGP AS 65001, two neighbors</text>
+<text x="942" y="475" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">(169.254.7.2 and 169.254.7.3)</text>
+<text x="942" y="493" font-size="10" font-weight="700" fill="#d9822b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">default-originate</text>
+<text x="942" y="509" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">prefix-list-out: remote CIDR</text>
+<text x="942" y="523" font-size="10" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">and 0.0.0.0/0</text>
+<rect x="250" y="626" width="480" height="54" rx="8" fill="#f4f7fa" stroke="#8aa0b4" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="266" y="648" font-size="11.5" font-weight="700" fill="#5b6b7b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Inspection VPC attachment (transport only)</text>
+<text x="266" y="664" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">AWS requires it as the Connect transport. No route targets it; nothing routes through it.</text>
+</svg>

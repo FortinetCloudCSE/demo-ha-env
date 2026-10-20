@@ -23,17 +23,7 @@ the new primary on failover, and the session table and configuration are synchro
 The addresses on port1 to port3 are pinned on the ENIs (`data_host_ip`, default 4) and configured statically in FortiOS.
 A DHCP lease did not come back on the standby unit after a reboot, so DHCP is not used.
 
-<!-- TODO: replace with Lucidchart export (HA interfaces and subnets): demo-ha.png -->
-```
-        AZ1 subnets                         AZ2 subnets
-   public   10.1.0.0/24  ── port1 ──┐   ┌── port1 ──  public   10.1.1.0/24
-   private  10.1.2.0/24  ── port2 ──┤   ├── port2 ──  private  10.1.3.0/24
-   ha-mgmt  10.1.4.0/24  ── port3 ──┼───┼── port3 ──  ha-mgmt  10.1.5.0/24
-   (public, IGW route, EIP on port3)                (public, IGW route, EIP on port3)
-   tgw      10.1.6.0/24  (TGW attachment)            tgw      10.1.7.0/24
-                              PRIMARY    SECONDARY
-                         port4 ─► management VPC ◄─ port4   (no EIP)
-```
+![Inspection VPC subnets and FortiGate interfaces in each AZ](demo-ha.svg)
 
 ## The heartbeat
 

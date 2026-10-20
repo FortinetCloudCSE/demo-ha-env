@@ -93,25 +93,7 @@ same mechanism because it is the mirror image of flow 1 and fails in the same wa
 
 ## The mechanism
 
-<!-- TODO: replace with Lucidchart export (session created in one VRF, reply in another): demo-vrf-session.png -->
-```
-   First packet                                       Reply packet
-   ────────────                                       ────────────
-   arrives on gre-east                                arrives on port1
-   ingress VRF = 10                                   ingress VRF = 0
-        │                                                  │
-        ▼                                                  ▼
-   route lookup in VRF 10        (works: leaked          session lookup in VRF 0
-   default via port1              static route)               │
-        │                                                  no session matched
-        ▼                                                  │
-   policy lookup, SNAT                                     ▼
-        │                                                 DROP
-        ▼
-   session created in VRF 10
-   (original: gre-east / VRF 10,
-    reply: expected back from port1)
-```
+![A session created in one VRF is not found by a reply in another VRF](demo-vrf-session.svg)
 
 Both flows share the pattern:
 
