@@ -45,7 +45,7 @@ All Terraform lives under `terraform/` (run terraform from there). `content/` is
   usable host) in their AZ1 workload subnet, so the VIP target is computed in `sites.tf` with `cidrhost()` and does not depend
   on the instances (which would be a cycle). Pinning replaces the DHCP addresses, so the spoke instances get rebuilt on the
   next apply (east/west are now .132 in site_a/site_b 10.x.y.0/24 spokes instead of the old DHCP IPs).
-- Inspection /24 is split into eight /27s: public, private, ha-sync, tgw (each AZ1/AZ2). Spoke /24s into four /26s.
+- Inspection /21 is split into eight /24s: public, private, ha-mgmt, tgw (each AZ1/AZ2). Spoke /24s into four /26s.
 - Interfaces: port1 public (cluster EIP, IPsec), port2 private (TGW side), port3 heartbeat + config sync + HA-mgmt in a
   public ha-mgmt subnet with an EIP per unit (the FGCP reference design; EC2 API goes out port3, no VPC endpoint), port4
   multi-VPC ENI in the management VPC with NO EIP, VRF 1, `dedicated-to management`, `allowaccess fgfm` only
