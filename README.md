@@ -26,10 +26,11 @@ This is demo code, not a production reference. See [Status and caveats](#status-
   side (169.254.100.0/30) and the customers ride inside it on their own GRE tunnels: `gre-east-x` (key 10, 169.254.10.0/30)
   and `gre-west-x` (key 20, 169.254.20.0/30). Static routes send each customer's remote spoke CIDR into its own tunnel
   (no BGP between the sites). Inter-site traffic has to use the tunnel.
-- **Customer isolation without VRFs.** East and west each have a GRE tunnel to the TGW and one to the other site, their own
-  firewall policies, and a final `deny-east-west` policy that logs any attempt to cross. Each TGW BGP peer is sent only the
-  remote prefix of its own customer. (VRFs were tried: sessions are VRF-scoped, so internet egress and the SSH VIPs through
-  port1 broke. See the notes in `CLAUDE.md`.)
+- **Customer isolation with VRFs.** East (VRF 10) and west (VRF 20) each have a GRE tunnel to the TGW and one to the other site
+  in their own VRF, their own firewall policies, and a final `deny-east-west` policy that logs any attempt to cross. Each TGW BGP
+  peer is sent only the remote prefix of its own customer. Internet egress and the SSH VIPs cross from a customer VRF to port1,
+  so those policies set `skip-vrf-match` (without it the reply is dropped with `no session matched`). See the VRF Isolation
+  chapter of the docs.
 - **Spokes reach the firewall over TGW Connect (GRE).** Each spoke has its own Connect attachment and Connect peer to the
   site's primary FortiGate (port2). eBGP runs over the GRE tunnel: the FortiGate advertises a default route and the
   remote-site prefixes to the TGW and learns the local spoke prefix. The inspection VPC's regular TGW attachment still exists,
@@ -101,7 +102,7 @@ If your shell exports `AWS_ACCESS_KEY_ID` and `AWS_SESSION_TOKEN` from an earlie
 Unset them (`unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN`) and keep `AWS_PROFILE`.
 
 Useful variables: `license_type` (payg, byol or fortiflex), `site_a_ssh_forwards` and `site_b_ssh_forwards`,
-`ssh_admin_sources`, `tgw_cidr_blocks`, `enable_spoke_instances`.
+`tgw_cidr_blocks`, `enable_spoke_instances`.
 
 `terraform/terraform.tfvars`, state, licenses and FortiGate config backups are excluded by `.gitignore`.
 

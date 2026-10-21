@@ -4,7 +4,8 @@ availability_zone_2 = "b"
 cp                  = "acme"
 env                 = "demo"
 keypair             = "my-keypair"
-management_cidr_sg  = ["203.0.113.10/32"]
+# list of CIDRs, not single IPs: your public address(es) as x.x.x.x/32, for example ["x.x.x.x/32", "y.y.y.y/32"]
+management_cidr_sg  = ["x.x.x.x/32"]
 
 # Two sites, non-overlapping /24s. Each site gets an inspection VPC (HA pair), a TGW, and east/west spokes.
 site_a = {
@@ -60,9 +61,7 @@ fortigate_mgmt_host_ips = {
 }
 
 # Site A SSH forwards on the cluster EIP: ssh -p <port> ec2-user@<site A cluster EIP>
-ssh_admin_sources = {
-  admin-src = "203.0.113.10/32"
-}
+# SSH VIP sources are the management_cidr_sg CIDRs (address objects admin-src-1, admin-src-2, ...)
 site_a_ssh_forwards = [
   { name = "east", port = 2222, spoke = "east" },
   { name = "west", port = 2223, spoke = "west" },

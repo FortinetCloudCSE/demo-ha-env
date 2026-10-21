@@ -104,3 +104,9 @@ execute ping 169.254.10.2
 execute ping 169.254.20.2
 diagnose netlink interface list gre-east-x
 ```
+
+## The tunnel is in the customer's VRF
+
+`gre-east-x` is in VRF 10 and `gre-west-x` in VRF 20, the same VRFs as the customer's tunnel to the TGW. The IPsec interface itself stays in the
+default VRF, so each customer VRF has a static route to the remote tunnel address through it. Same-customer traffic across the sites stays
+inside one VRF, so it does not need `skip-vrf-match`. See [Customer Isolation](../3_5_customer_isolation/).

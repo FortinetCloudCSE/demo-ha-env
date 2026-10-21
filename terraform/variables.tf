@@ -29,11 +29,6 @@ variable "management_cidr_sg" {
   description = "CIDRs allowed to reach FortiGate port4, FortiManager and FortiAnalyzer"
   type        = list(string)
 }
-variable "ssh_admin_sources" {
-  description = "FortiGate address object name => source CIDR allowed through the port1 SSH forwards on both sites"
-  type        = map(string)
-  default     = {}
-}
 variable "site_a_ssh_forwards" {
   description = "Site A port1 VIPs forwarding a public TCP port to SSH (22) on a spoke instance; spoke (east or west) selects the target, that spoke instance pinned IP (spoke_host_ip)"
   type = list(object({

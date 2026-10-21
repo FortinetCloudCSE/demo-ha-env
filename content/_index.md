@@ -12,4 +12,4 @@ This documentation describes the **demo-ha-env** demo: a Terraform-built design 
 share one pair of FortiGates at each of two sites, yet their traffic stays separate end to end. Each customer has its own
 GRE tunnel to the Transit Gateway and its own GRE tunnel, carried inside an IPsec tunnel, to the other site.
 
-It also records, in detail, why per-customer **VRFs** were tried and dropped. See [Why Not VRFs](6_why_not_vrfs/).
+Each customer also has its own **VRF** on the FortiGate. The documentation records how that was built, the failure that was found on the way, and the one setting (`skip-vrf-match`) that fixes it. See [VRF Isolation](6_vrf_isolation/).

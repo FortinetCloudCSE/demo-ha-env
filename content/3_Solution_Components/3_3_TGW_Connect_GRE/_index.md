@@ -76,3 +76,9 @@ get router info bgp summary                 # four neighbors Established
 get router info routing-table all           # local spokes by BGP
 diagnose sniffer packet port2 'proto 47' 4 0 l
 ```
+
+## The tunnel is in the customer's VRF
+
+On the FortiGate each customer's GRE tunnel to the TGW (`gre-east`, `gre-west`) is in that customer's VRF (10 and 20), with its BGP
+neighbors. A tunnel in a VRF looks up its outer destination in that VRF, so each VRF has its own route to the TGW CIDR through
+port2. See [Customer Isolation](../3_5_customer_isolation/) for the routes and [VRF Isolation](../../6_vrf_isolation/) for the test.

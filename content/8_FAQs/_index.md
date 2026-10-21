@@ -4,10 +4,11 @@ menuTitle: "FAQs"
 weight: 80
 ---
 
-## Why are there no VRFs?
+## Why does `skip-vrf-match` appear on some firewall policies?
 
-They were tested and dropped: internet egress and the SSH VIPs fail because the reply arrives in a different VRF from the one
-that created the session. See [Why Not VRFs](../6_why_not_vrfs/).
+Each customer is in its own VRF, but internet egress and the SSH VIPs have to cross to port1 in the default VRF. Without the option
+the reply arrives in a different VRF from the one that created the session and is dropped with `no session matched`. It is set
+on the egress and VIP policies only. See [VRF Isolation](../6_vrf_isolation/).
 
 ## Why PAYG and not BYOL or FortiFlex?
 

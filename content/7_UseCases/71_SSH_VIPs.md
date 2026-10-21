@@ -13,7 +13,6 @@ spoke instance, limited to a set of admin source addresses.
 ## Configuration
 
 ```hcl
-ssh_admin_sources = { admin-src = "203.0.113.10/32" }
 site_a_ssh_forwards = [
   { name = "east", port = 2222, spoke = "east" },
   { name = "west", port = 2223, spoke = "west" },

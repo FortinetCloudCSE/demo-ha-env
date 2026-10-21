@@ -15,7 +15,7 @@ The design uses:
 - **AWS Transit Gateway (TGW) Connect** (GRE with eBGP) between each spoke VPC and the primary FortiGate
 - **IPsec between the sites**, with one **GRE tunnel per customer inside it**
 - **A shared management VPC** with FortiManager and FortiAnalyzer; each FortiGate has a port4 in it (no EIP) for FortiManager and FortiAnalyzer, and its own HA-management interface (port3, with an EIP) for GUI and SSH
-- **Firewall policy, not VRFs, for isolation** (see [Why Not VRFs](../6_why_not_vrfs/) for the reasoning)
+- **A VRF per customer, plus firewall policy, for isolation** (see [VRF Isolation](../6_vrf_isolation/) for how it works and what it needs)
 
 ## Who this is for
 
@@ -35,7 +35,7 @@ Each page says what has and has not been proven.
 | [Solution Components](../3_solution_components/) | Each building block: HA, management, TGW Connect, inter-site GRE, isolation, licensing |
 | [Deployment](../4_deployment/) | Prerequisites, variables and the apply |
 | [Validation](../5_validation/) | The commands that prove each layer works |
-| [Why Not VRFs](../6_why_not_vrfs/) | What was tested on a live unit, the evidence, and why VRFs failed |
+| [VRF Isolation](../6_vrf_isolation/) | How the VRFs were built, the failure found on the way, the `skip-vrf-match` fix, and the evidence |
 | [Use Cases](../7_usecases/) | SSH VIPs, internet egress, cross-site traffic, an isolation test |
 | [FAQs](../8_faqs/) | Troubleshooting |
 | [What We Learned](../9_what_we_learned/) | Why the management interfaces are laid out the way they are, and what failed before |

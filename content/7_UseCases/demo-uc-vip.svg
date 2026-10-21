@@ -6,8 +6,8 @@
 <text x="620.0" y="26" font-size="15" font-weight="700" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">SSH to a spoke instance through a VIP on the cluster EIP (site A shown)</text>
 <rect x="30" y="245" width="150" height="70" rx="8" fill="#ffffff" stroke="#2f8f5b" stroke-width="2"/>
 <text x="105" y="268" font-size="13" font-weight="700" fill="#2f8f5b" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Admin</text>
-<text x="105" y="285" font-size="10.5" font-weight="400" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">203.0.113.10/32</text>
-<text x="105" y="300" font-size="10" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">address object admin-src</text>
+<text x="105" y="285" font-size="10.5" font-weight="400" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">x.x.x.x/32</text>
+<text x="105" y="300" font-size="10" font-weight="400" fill="#5a6877" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">address objects admin-src-N</text>
 <polyline points="180,280 215,280" fill="none" stroke="#2f8f5b" stroke-width="3" stroke-linejoin="round"/>
 <rect x="215" y="250" width="110" height="60" rx="24" fill="#eef2f6" stroke="#9aa9b8" stroke-width="1.5"/>
 <text x="270" y="285" font-size="13" font-weight="700" fill="#1d2733" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Internet</text>
@@ -27,7 +27,7 @@
 <text x="577" y="120" font-size="12" font-weight="700" fill="#1f6fb5" text-anchor="start" font-family="Helvetica, Arial, sans-serif">vip-ssh-a-east</text>
 <text x="577" y="138" font-size="10.5" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">EIP:2222  DNAT to 10.1.10.132:22</text>
 <text x="577" y="156" font-size="10.5" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">policy 10+  port1 to gre-east</text>
-<text x="577" y="174" font-size="10.5" font-weight="700" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">source: admin-src only</text>
+<text x="577" y="174" font-size="10.5" font-weight="700" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">source: admin-src-N only</text>
 <text x="577" y="192" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">nat disable (169.254.x is not</text>
 <text x="577" y="206" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">routable from the spokes)</text>
 <polyline points="785,160 810,160" fill="none" stroke="#1f6fb5" stroke-width="3" stroke-linejoin="round"/>
@@ -46,7 +46,7 @@
 <text x="577" y="360" font-size="12" font-weight="700" fill="#d9822b" text-anchor="start" font-family="Helvetica, Arial, sans-serif">vip-ssh-a-west</text>
 <text x="577" y="378" font-size="10.5" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">EIP:2223  DNAT to 10.1.20.132:22</text>
 <text x="577" y="396" font-size="10.5" font-weight="400" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">policy 10+  port1 to gre-west</text>
-<text x="577" y="414" font-size="10.5" font-weight="700" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">source: admin-src only</text>
+<text x="577" y="414" font-size="10.5" font-weight="700" fill="#1d2733" text-anchor="start" font-family="Helvetica, Arial, sans-serif">source: admin-src-N only</text>
 <text x="577" y="432" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">nat disable (169.254.x is not</text>
 <text x="577" y="446" font-size="10" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">routable from the spokes)</text>
 <polyline points="785,400 810,400" fill="none" stroke="#d9822b" stroke-width="3" stroke-linejoin="round"/>
