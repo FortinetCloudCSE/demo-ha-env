@@ -35,7 +35,7 @@ Each page says what has and has not been proven.
 | [Solution Components](../3_solution_components/) | Each building block: HA, management, TGW Connect, inter-site GRE, isolation, licensing |
 | [Deployment](../4_deployment/) | Prerequisites, variables and the apply |
 | [Validation](../5_validation/) | The commands that prove each layer works |
-| [VRF Isolation](../6_vrf_isolation/) | How the VRFs were built, the failure found on the way, the `skip-vrf-match` fix, and the evidence |
+| [VRF Isolation](../6_vrf_isolation/) | How GRE tunnels, VRFs and policy with `skip-vrf-match` isolate the customers, and how to verify it |
 | [Use Cases](../7_usecases/) | SSH VIPs, internet egress, cross-site traffic, an isolation test |
 | [FAQs](../8_faqs/) | Troubleshooting |
 | [What We Learned](../9_what_we_learned/) | Why the management interfaces are laid out the way they are, and what failed before |

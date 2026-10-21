@@ -74,9 +74,9 @@ Leaked routes make the routing lookup work, but a session is tied to the VRF of 
 reply that arrives in a different VRF is dropped with `no session matched`. `set skip-vrf-match enable` on a firewall policy tells
 the FortiGate to ignore the VRF when it matches the reply of a cross-VRF session. It is set on the policies that cross between a
 customer VRF and port1: internet egress (1, 2) and the SSH VIPs (10 and up). The inter-site policies (3 to 6) stay inside one VRF
-and do not need it. The evidence is in [The Failure and the Fix](../../6_vrf_isolation/6_3_why_it_fails/).
+and do not need it. How it works is in [Cross-VRF Traffic](../../6_vrf_isolation/6_3_cross_vrf_traffic/).
 
-To confirm it on a running pair, see the VRF steps in [Validation](../../5_validation/).
+To confirm it on a running pair, see [Verify and Troubleshoot](../../6_vrf_isolation/6_4_verify_and_troubleshoot/).
 
 ## What is deliberately not isolated
 
@@ -87,7 +87,7 @@ Both customers share:
 - the policy table and the one FortiGate configuration
 
 The VRFs separate routing tables and sessions. They do not give each customer a separate public address or a separate firewall.
-If a customer needs those, see [Other Options](../../6_vrf_isolation/6_4_alternatives/).
+If a customer needs those, see [Limits and Options](../../6_vrf_isolation/6_5_limits_and_options/).
 
 ## Overlapping address space
 

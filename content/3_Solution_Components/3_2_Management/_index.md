@@ -47,14 +47,10 @@ Each unit uses the gateway of its **own** subnet.
 - TCP 443, TCP 22 and ICMP from `management_cidr_sg` only
 - all traffic from the inspection VPC CIDR (heartbeat and config sync)
 
-**What failover moves.** FortiOS reassigns the *cluster* EIP (on port1's primary IP) and the route targets to the new master.
-Port3's EIP belongs to each unit and stays put, because port3 is the interface defined in `config system ha`.
-
-{{% notice warning %}}
-In an earlier version the management interface (a separate ENI in the management VPC) was **not** part of the HA configuration
-and carried the EIPs, and failover moved those EIPs between the units. That is why the EIP now lives on the HA management
-port and port4 has none.
-{{% /notice %}}
+**What failover moves.** On failover FortiOS moves the EIPs to the new primary and updates the routes that point at the old
+primary's ENI. The cluster EIP (on port1's primary IP) moves that way. Port3's EIP does not: port3 is the HA management interface
+(`ha-mgmt-interface` in `config system ha`), so its EIP belongs to each unit and stays put. An EIP on any other ENI, including a
+dedicated management ENI such as port4, would move with the primary. That is why the per-unit EIP lives on port3 and port4 has none.
 
 ## Port4: FortiManager and FortiAnalyzer only
 

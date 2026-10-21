@@ -3,54 +3,38 @@ title: "VRF Isolation"
 chapter: true
 menuTitle: "VRF Isolation"
 weight: 60
-aliases:
-  - /6_why_not_vrfs/
 ---
 
 # VRF Isolation
 
-Each customer gets its own VRF on the FortiGate: **east is VRF 10 and west is VRF 20**. This chapter records how that was
-built, the failure found on the way, the one setting that fixes it, and the evidence. It was tested on a live pair
-(FortiOS 8.0.1 build 0245), first by hand and then from the bootstrap template.
+Two customers share one pair of FortiGates at each site. Their traffic must stay separate end to end, and each customer
+still needs internet egress and inbound access to its own backend instances. This chapter shows how the design gets there, in
+layers:
 
-{{% notice info %}}
-An earlier version of this chapter was called "Why Not VRFs". The first attempt failed and the VRFs were dropped. A
-suggestion to use `skip-vrf-match` on the firewall policies then fixed it, and the design now uses VRFs. The failure is kept
-here because it explains why the setting is needed.
-{{% /notice %}}
+1. **A GRE tunnel per customer**, to the Transit Gateway and to the other site, so each customer has its own path.
+2. **A VRF per customer** on the FortiGate (east 10, west 20), so each customer has its own routing table and its own sessions.
+3. **Firewall policy** that says who may talk to whom, with a logged deny between the customers.
+4. **`skip-vrf-match` on the policies that leave the customer VRF** (internet egress and the SSH VIPs), so replies that come back
+   through the shared port find their session.
 
-## The short version
+Tested on FortiOS 8.0.1 build 0245, on both sites.
 
-- Putting the **GRE tunnels into VRFs works**, including BGP inside each VRF. Each VRF has its own routing table.
-- **Internet egress and the SSH VIPs fail by default.** Those flows must cross from a customer VRF to port1, which is in the
-  default VRF. The packets are forwarded, but the **reply is dropped** with `no session matched`, because the session is
-  created in one VRF and the reply arrives in the other.
-- Leaking routes between VRFs with static routes is **necessary but not enough**. It answers the routing lookup, not the
-  session lookup.
-- **`set skip-vrf-match enable` on the firewall policy fixes it.** It tells the FortiGate to ignore the VRF when it matches
-  the reply of a cross-VRF session. With it, egress and the VIPs work. Without it, they fail again. Both were tested.
+## What was verified
 
-## What was tested
-
-| Flow | `skip-vrf-match` off | `skip-vrf-match` on |
-|---|---|---|
-| SSH VIP (port1 to a spoke through `gre-east`) | fails, `no session matched` | works |
-| Internet egress (`gre-east` to port1) | times out, no reply | works |
-| East to east across the sites | works (no VRF crossing) | not needed |
-| West to west across the sites | works (no VRF crossing) | not needed |
-| East to west, and east to the other site's west | blocked, as designed | |
+| Flow | Result |
+|---|---|
+| East to east and west to west across the sites | works, and stays inside one VRF |
+| East to west, on either site | blocked |
+| Internet egress from a spoke | works, returns the site's cluster EIP |
+| SSH to a spoke through a VIP on the cluster EIP | works |
+| Egress and the VIP with `skip-vrf-match` removed | fail, `no session matched`; they work again when it is restored |
 
 ## Pages in this chapter
 
 | Page | Content |
 |---|---|
-| [Goal and Approach](6_1_goal_and_approach/) | What was being built and how the test was run |
-| [What Worked](6_2_what_worked/) | VRF on GRE, BGP in a VRF, the underlay route |
-| [The Failure and the Fix](6_3_why_it_fails/) | The two failing flows, the debug output, and `skip-vrf-match` |
-| [Other Options](6_4_alternatives/) | What else would work, and when you would want it |
-
-To check the VRFs on a running pair, see the VRF steps in [Validation](../5_validation/).
-
-{{% notice info %}}
-The `skip-vrf-match` result was observed on FortiOS 8.0.1 build 0245 only. Other builds were not tried.
-{{% /notice %}}
+| [Use Case and Design](6_1_use_case_and_design/) | What the customers need, and how the four layers build up to it |
+| [Building It](6_2_building_it/) | The configuration, step by step, with what each step is for |
+| [Cross-VRF Traffic](6_3_cross_vrf_traffic/) | How egress and the VIPs cross between a customer VRF and port1, and what `skip-vrf-match` does |
+| [Verify and Troubleshoot](6_4_verify_and_troubleshoot/) | The commands that prove it works, how to read the debug output, and what a problem looks like |
+| [Limits and Options](6_5_limits_and_options/) | What the design does not give you, and what to do if you need more |

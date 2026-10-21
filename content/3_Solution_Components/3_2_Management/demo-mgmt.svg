@@ -83,7 +83,7 @@
 <text x="866" y="574" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">the primary's port4. The secondary's port4 is in</text>
 <text x="866" y="588" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">the AZ2 subnet, so it needs the static route.</text>
 <rect x="250" y="560" width="500" height="90" rx="8" fill="#f4f7fa" stroke="#d3dbe3" stroke-width="1"/>
-<text x="264" y="582" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Failover moves only the cluster EIP (port1). Each port3 EIP stays with its unit.</text>
+<text x="264" y="582" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Failover moves the cluster EIP (port1). Each port3 EIP stays with its unit.</text>
 <text x="264" y="598" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">port4 cannot be the HA management port: FortiOS then refuses it as a source</text>
 <text x="264" y="614" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">interface for FortiManager and FortiAnalyzer.</text>
 <text x="264" y="630" font-size="10.5" font-weight="400" fill="#5a6877" text-anchor="start" font-family="Helvetica, Arial, sans-serif">dedicated-to management is set last in the bootstrap (the template ends with yend).</text>
