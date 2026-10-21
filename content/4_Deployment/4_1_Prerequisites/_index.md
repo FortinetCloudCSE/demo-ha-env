@@ -10,7 +10,7 @@ weight: 41
 - Terraform
 - An AWS login (`aws sso login`) with permissions across EC2, VPC, Transit Gateway, S3, IAM and Elastic IP
 - An existing EC2 key pair in the target region (`keypair`)
-- Your public IP, for `management_cidr_sg` and `ssh_admin_sources`
+- Your public IP, for `management_cidr_sg`, which also gates the SSH VIPs
 - Subscriptions for the FortiGate, FortiManager and FortiAnalyzer AMIs in the AWS Marketplace
 
 {{% notice warning %}}
@@ -37,4 +37,4 @@ aws ec2 describe-images --owners 679593333241 --region us-west-2 \
 ## Note on SASE and VPN clients
 
 A SASE or VPN client on your laptop changes the source address that AWS and the FortiGates see. If you cannot reach the
-GUI, SSH or the VIPs, check that the address you appear from is in `management_cidr_sg` and `ssh_admin_sources`.
+GUI, SSH or the VIPs, check that the address you appear from is in `management_cidr_sg`.

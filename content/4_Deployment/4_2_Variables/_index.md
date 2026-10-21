@@ -16,7 +16,7 @@ backups are excluded by `.gitignore`.
 | `availability_zone_1`, `availability_zone_2` | `a`, `b` | |
 | `cp`, `env` | `acme`, `demo` | resource-name prefix |
 | `keypair` | `my-keypair` | must already exist |
-| `management_cidr_sg` | `["203.0.113.10/32"]` | who may reach the FortiGate port3 (HA-management) GUI and SSH |
+| `management_cidr_sg` | `["x.x.x.x/32"]` | who may reach the FortiGate port3 (HA-management) GUI and SSH |
 | `site_a`, `site_b` | see below | non-overlapping CIDRs |
 | `demo_password` | | one password for every demo secret |
 
@@ -62,7 +62,6 @@ A `terraform_data.management_ip_check` resource fails the plan if any pinned man
 enable_spoke_instances = true
 spoke_host_ip          = 4          # host in the AZ1 workload subnet
 
-ssh_admin_sources = { admin-src = "203.0.113.10/32" }
 site_a_ssh_forwards = [
   { name = "east", port = 2222, spoke = "east" },
   { name = "west", port = 2223, spoke = "west" },

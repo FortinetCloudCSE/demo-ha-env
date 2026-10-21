@@ -105,7 +105,7 @@ Each iteration, and what ended it:
   port3.
 - **`dedicated-to management` and VRF 1 on port4.** It keeps the management VPC traffic out of the data-plane routing table and
   preserves the requirement of a dedicated management interface in the management VPC. The traffic is generated and received by
-  the FortiGate itself, so no flow crosses between VRFs, which is the case that failed in [Why Not VRFs](../6_why_not_vrfs/).
+  the FortiGate itself, so no flow crosses between VRFs, which is the case that needs `skip-vrf-match` for the customer VRFs, see [VRF Isolation](../6_vrf_isolation/).
 - **`allowaccess fgfm` only.** Port4 does one job. HTTPS, SSH and ping are not needed there, and the security group on the ENI
   allows only TCP 541 from the management VPC.
 - **FortiGuard left on the defaults.** Port4 has no internet path, and the units validated without any FortiGuard interface
@@ -116,16 +116,16 @@ Each iteration, and what ended it:
 
 ## 4. Route leaking between VRFs is not session leaking
 
-The first customer-isolation design put east in VRF 10 and west in VRF 20. It was tried by hand on a running unit and dropped.
-The full test, with the debug output, is in [Why Not VRFs](../6_why_not_vrfs/). The short version:
+The first customer-isolation design put east in VRF 10 and west in VRF 20. The first test failed, the VRFs were dropped, and a
+firewall policy option then fixed it. The full test, with the debug output, is in [VRF Isolation](../6_vrf_isolation/). The short version:
 
 **What worked.** A VRF on a GRE interface (`set vrf 10`), and a BGP neighbor inside that VRF. Each VRF learned only its own
 customer's spoke prefix, so the routing tables separated cleanly.
 
-**What broke, and how the leaked routes behaved.** Two flows must cross between a customer VRF and port1, which stays in the
-default VRF: internet egress from the spokes, and the SSH VIPs. A static route can name a VRF, with an exit interface in another VRF,
-and those leaked routes installed cleanly (`S D` in the routing table). Every route lookup then returned the right answer. The
-first packet of each flow went through. The reply was dropped:
+**What broke.** Two flows must cross between a customer VRF and port1, which stays in the default VRF: internet egress from the
+spokes, and the SSH VIPs. A static route can name a VRF, with an exit interface in another VRF, and those leaked routes installed
+cleanly (`S D` in the routing table). Every route lookup then returned the right answer. The first packet of each flow went
+through. The reply was dropped:
 
 ```
 vd-root:10 received a packet(proto=6, 10.1.10.132:22->...) from gre-east. flag [S.]
@@ -138,6 +138,11 @@ The session was created in `vd-root:0` (the VRF of the interface the first packe
 first packet had created in the other VRF. Leaking a route changes what the routing table returns. It does not change which VRF
 a packet belongs to.
 
+**The fix.** `set skip-vrf-match enable` on the firewall policy. It tells the FortiGate to ignore the VRF when it matches the reply
+of a cross-VRF session. It goes on the egress and VIP policies (the ones that cross to port1). With it on, egress and the VIPs work.
+With it off, they fail again. Both were tested, and the session list shows a `skip_vrf` flag when it is in effect. The first test did not
+find it because it was looking at routing, not at the policy.
+
 **Side effects on the firewall that you would not expect**
 - **GRE underlay.** Moving a GRE interface into a VRF made FortiOS look up the tunnel's *outer* destination in that VRF. The route
   to the TGW lived only in the default VRF, so every transmit failed (the interface's `txe` counter climbed) and BGP stayed in
@@ -147,15 +152,14 @@ a packet belongs to.
 - **Debugging.** `diagnose debug flow` prints the VRF context of each packet (`vd-root:0` or `vd-root:10`). That is what exposed
   the problem. The sniffer showed the reply arriving, so the traffic looked healthy from outside.
 
-**Scope.** This is an observation on FortiOS 8.0.1 build 0245, not a documented rule. BGP route leaking (`config vrf`,
-`leak-target`) was not tried; it leaks routes, the same layer as the static leaks, so there is no reason to expect different session
-behavior. Flows that stay inside one VRF are not affected, which is why the management VRF on port4 is fine (see section 3).
+**Scope.** Tested on FortiOS 8.0.1 build 0245 only. BGP route leaking (`config vrf`, `leak-target`) was not tried. Flows that stay inside
+one VRF are not affected, which is why the management VRF on port4 needs no special handling (see section 3).
 
 ## Other lessons that live elsewhere
 
 | Lesson | Where |
 |---|---|
-| Per-customer VRFs break internet egress and the SSH VIPs, because a session is tied to the VRF it was created in | [Why Not VRFs](../6_why_not_vrfs/) |
+| Per-customer VRFs break internet egress and the SSH VIPs unless the policies set `skip-vrf-match`, because a session is tied to the VRF it was created in | [VRF Isolation](../6_vrf_isolation/) |
 | An outbound BGP prefix-list also filters the default route from `capability-default-originate` ("default not sent") | [TGW Connect (GRE)](../3_solution_components/3_3_tgw_connect_gre/) |
 | FortiOS will not negotiate a route-based IPsec tunnel unless a firewall policy references the tunnel interface | [Inter-Site GRE](../3_solution_components/3_4_inter_site_gre/) |
 | BYOL and FortiFlex licenses stayed `Pending` on 8.0.1 while PAYG validated at once | [Licensing](../3_solution_components/3_6_licensing/) |

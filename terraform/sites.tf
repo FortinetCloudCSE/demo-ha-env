@@ -23,14 +23,17 @@ locals {
     target_ip = cidrhost(cidrsubnet(f.spoke == "east" ? var.site_b.east_cidr : var.site_b.west_cidr, 2, 2), var.spoke_host_ip)
   })]
 
+  # The SSH VIPs accept the same sources as the management ports, so one list controls who can reach the FortiGates
+  ssh_admin_sources = { for i, cidr in var.management_cidr_sg : "admin-src-${i + 1}" => cidr }
+
   site_a_extra_config = templatefile("${path.module}/templates/ssh-forwards.tpl", {
     site_label    = "site-a"
-    admin_sources = var.ssh_admin_sources
+    admin_sources = local.ssh_admin_sources
     ssh_forwards  = local.site_a_ssh_forwards
   })
   site_b_extra_config = templatefile("${path.module}/templates/ssh-forwards.tpl", {
     site_label    = "site-b"
-    admin_sources = var.ssh_admin_sources
+    admin_sources = local.ssh_admin_sources
     ssh_forwards  = local.site_b_ssh_forwards
   })
 }

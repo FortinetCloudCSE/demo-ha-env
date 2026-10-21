@@ -13,13 +13,14 @@ Isolate customer traffic on a shared FortiGate pair. Map **east to VRF 10** and 
 - `gre-east-x` and `gre-west-x` (the tunnels through IPsec to the other site) in the same VRF
 - a customer's routes, sessions and policies never meet another customer's
 
-The idea was a variable in `terraform/terraform.tfvars`, `customer_vrfs = { east = 10, west = 20 }`, feeding the bootstrap template.
-It was never written into the Terraform. The commands below were entered by hand on a live unit first.
+In the Terraform this is one value per customer (`customer_vrf = { east = 10, west = 20 }` in `modules/site/connect.tf`), passed to the
+bootstrap template. The commands in the next pages were first entered by hand on a live unit, and then moved into the template
+once they were understood.
 
 ## Why test by hand first
 
 A template change replaces all four FortiGates, and several FortiOS behaviors were not known. Five questions needed
-answers before any code was written:
+answers before the template was changed:
 
 1. Can a GRE interface sit in a VRF while its underlay (port2) stays in the default VRF?
 2. Can a BGP neighbor be placed in a VRF, and how?

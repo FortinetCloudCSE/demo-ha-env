@@ -95,6 +95,8 @@ resource "aws_ec2_transit_gateway_route_table_propagation" "connect_to_spoke" {
 locals {
   intersite_tunnel_cidr = "169.254.100.0/30"
   intersite_gre_key     = { east = 10, west = 20 }
+  # one VRF per customer on the FortiGate; the tunnels to the TGW and to the other site and their routes live in it
+  customer_vrf          = { east = 10, west = 20 }
   intersite_inside_cidr = { east = "169.254.10.0/30", west = "169.254.20.0/30" }
 
   intersite_tunnel_local  = cidrhost(local.intersite_tunnel_cidr, var.site_index)

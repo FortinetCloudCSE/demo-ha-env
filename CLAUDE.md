@@ -9,7 +9,7 @@ Two FortiGate FGCP HA pairs, each in its own inspection VPC, joined by IPsec VPN
 east/west workload VPCs attached to its own TGW, sitting behind the pair. One shared management VPC
 holds FortiManager + FortiAnalyzer. Every FortiGate has a port3 HA-management interface with an EIP (GUI/SSH) and a port4
 multi-VPC ENI in the management VPC (no EIP) used only for FortiManager and FortiAnalyzer. Customers (east, west) are
-isolated end to end by GRE tunnels and firewall policy, not VRFs.
+isolated end to end by a VRF per customer (east 10, west 20), GRE tunnels and firewall policy.
 
 ## Decisions already made (user confirmed; do not re-ask)
 
@@ -40,7 +40,7 @@ All Terraform lives under `terraform/` (run terraform from there). `content/` is
   `templates/fgt-config.tpl` (HA, IPsec, policies, FMG/FAZ registration, `${extra_config}` hook), `outputs.tf`.
 - `templates/ssh-forwards.tpl` (root) renders per-site SSH VIPs on the cluster EIP (address objects, `<name>-ssh` services,
   `vip-ssh-<site>-<name>`, policies 10+). `sites.tf` passes it to each module as `extra_config` when the site's forward list
-  is non-empty. Vars: `ssh_admin_sources` (map of address-object name to CIDR), `site_a_ssh_forwards`, `site_b_ssh_forwards`
+  is non-empty. Sources are the `management_cidr_sg` CIDRs (address objects `admin-src-N`). Vars: `site_a_ssh_forwards`, `site_b_ssh_forwards`
   (`{name, port, spoke}`, spoke = east or west). Spoke test instances are pinned at `spoke_host_ip` (default 4, the first
   usable host) in their AZ1 workload subnet, so the VIP target is computed in `sites.tf` with `cidrhost()` and does not depend
   on the instances (which would be a cycle). Pinning replaces the DHCP addresses, so the spoke instances get rebuilt on the
@@ -85,9 +85,9 @@ Facts worth keeping:
   (BYOL and FortiFlex stayed `Pending` on 8.0.1). SG descriptions cannot contain apostrophes. The keypair must exist.
 - Management IPs are pinned: `fortimanager_host_ip`, `fortianalyzer_host_ip`, `fortigate_mgmt_host_ips` (port4 per site,
   `[AZ1 primary, AZ2 secondary]`, default site_a 20, site_b 21). `terraform_data.management_ip_check` fails the plan on collisions.
-- `management_cidr_sg` lists who may reach the port3 GUI/SSH; `203.0.113.10/32` (TEST-NET-3) is the placeholder in the example.
+- `management_cidr_sg` lists who may reach the port3 GUI/SSH; `x.x.x.x/32` is the placeholder in the example.
 - HA group name is `acme-demo-site-a` / `-b` (cluster ID default 0). The port1 SG is open to `public_ingress_cidrs` (default
-  `0.0.0.0/0`); the FortiGate policies (the `ssh_admin_sources` address objects) gate access.
+  `0.0.0.0/0`); the FortiGate policies (the `admin-src-N` address objects built from `management_cidr_sg`) gate access.
 - Changing `fgt-config.tpl` changes the user-data and replaces all four FortiGates on the next apply.
 - `generate_network_diagram.sh` (repo root, runs terraform in `terraform/`) writes `diagram/network_diagram.{svg,md}`;
   works under macOS bash 3.2. It has not been run since the port3/port4 redesign.
@@ -126,20 +126,28 @@ Facts worth keeping:
   and ask for the output). Terraform plan/apply/destroy are run by the user.
 - Use `terraform fmt` after edits. Keep comment density and style consistent with the existing files.
 
-## Customer isolation: GRE tunnels, not VRFs (2026-10-17)
+## Customer isolation: a VRF per customer with skip-vrf-match (2026-10-21)
 
-East and west are isolated by tunnels and policy, with no VRFs. Per site: `gre-east`/`gre-west` to the TGW (Connect) and
-`gre-east-x`/`gre-west-x` through the IPsec tunnel to the other site (GRE keys 10/20; IPsec interface /32s in
-169.254.100.0/30, inside /30s 169.254.10.0/30 and 169.254.20.0/30, site_a takes host 1, site_b host 2; see the end of
-`modules/site/connect.tf`). Policies 1-7 in `fgt-config.tpl` are per customer plus a logged `deny-east-west`; SSH forwards start at 10.
-Each TGW BGP peer has a `prefix-list-out` with only its customer's remote CIDR.
+East is VRF 10 and west is VRF 20 (`customer_vrf` in `modules/site/connect.tf`, passed to the template as `vrf` on each
+`connect_peers` and `intersite` entry). Per site: `gre-east`/`gre-west` to the TGW (Connect) and `gre-east-x`/`gre-west-x` through the
+IPsec tunnel to the other site, all in the customer's VRF (GRE keys 10/20; IPsec interface /32s in 169.254.100.0/30, inside /30s
+169.254.10.0/30 and 169.254.20.0/30, site_a takes host 1, site_b host 2; see the end of `modules/site/connect.tf`). port1, port2 and the
+IPsec interface stay in VRF 0; port4 is VRF 1. Policies 1-7 in `fgt-config.tpl` are per customer plus a logged `deny-east-west`; SSH
+forwards start at 10. Each TGW BGP peer has a `prefix-list-out` with only its customer's remote CIDR.
 
-VRFs were tried by hand on a live unit (FortiOS 8.0.1) and dropped. Findings: `set vrf N` on the GRE interface works; a BGP neighbor
-joins the VRF through `set interface`/`set update-source`; the GRE underlay needs a static route with `set vrf N` to the TGW CIDR.
-But sessions are VRF-scoped: internet egress through port1 and the SSH VIPs (cross-VRF via leaked static routes) fail with `no
-session matched` on the reply. VRFs would need an egress interface per customer (port5/port6 + EIP) or VDOMs.
-
-Unverified: the inter-site GRE traffic (BGP-side GRE, the /32 on the IPsec interface and MTU 1350 are in place on a unit; ping across the sites untested).
+Template facts (verified on units, both sites, 2026-10-21):
+- A BGP neighbor joins a VRF through `set interface`/`set update-source` (there is no `vrf` option). `get router info routing-table vrf N`
+  does not parse; use `routing-table all`.
+- A tunnel in a VRF looks up its outer destination in that VRF, so each VRF has static routes with `set vrf N` to the TGW CIDR (30, 40) and
+  to the remote tunnel address via the IPsec interface (50, 51). Each VRF also has a default route out port1 (60, 61), and VRF 0 has the
+  return route to each customer's spoke CIDR via `gre-<c>` (70, 71). The remote-CIDR static routes (20, 21) carry the customer VRF.
+- Sessions are VRF-scoped: internet egress and the SSH VIPs cross between a customer VRF and port1 (VRF 0), and the reply is dropped with
+  `no session matched` unless the policy sets `skip-vrf-match enable`. It is set on policies 1 and 2 and on every SSH VIP policy. Tested on/off
+  on both (egress and VIP, east). Policies 3-6 stay inside one VRF and do not set it.
+- Verified: east and west cross-site pings, isolation (east cannot reach west), egress, VIPs. Not verified: failover, the logged
+  `deny-east-west` entry, overlapping customer CIDRs, other FortiOS builds. The hand test on 2026-10-17 had failed because it did not use
+  `skip-vrf-match`.
+- The VRF 0 underlay route to the TGW CIDR (edit 10) is still in the template next to the per-VRF copies. Whether it can be removed is untested.
 Found on a unit: `prefix-list-out` filters the default-originate route too ("default not sent"), so each list must include `0.0.0.0 0.0.0.0`.
 
 ## Management design (2026-10-17)

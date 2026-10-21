@@ -38,6 +38,7 @@ set action accept
 set schedule always
 set service SSH
 set nat disable
+set skip-vrf-match enable
 set logtraffic all
 next
 %{ endfor ~}

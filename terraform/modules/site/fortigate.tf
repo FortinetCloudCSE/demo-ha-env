@@ -244,6 +244,8 @@ locals {
       fgt_ip      = local.connect_bgp[k].fgt_ip
       tgw_ip1     = local.connect_bgp[k].tgw_ip1
       tgw_ip2     = local.connect_bgp[k].tgw_ip2
+      vrf         = local.customer_vrf[k]
+      local_cidr  = k == "east" ? var.east_cidr : var.west_cidr
       remote_cidr = k == "east" ? var.remote_east_cidr : var.remote_west_cidr
     }]
     # one GRE tunnel per customer through the IPsec tunnel to the other site
@@ -252,6 +254,7 @@ locals {
       key         = local.intersite_gre_key[k]
       fgt_ip      = local.intersite_inside[k].local
       peer_ip     = local.intersite_inside[k].remote
+      vrf         = local.customer_vrf[k]
       remote_cidr = k == "east" ? var.remote_east_cidr : var.remote_west_cidr
     }]
   }

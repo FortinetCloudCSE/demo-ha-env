@@ -33,4 +33,4 @@ get router info bgp neighbors 169.254.6.2 advertised-routes
 |---|---|
 | No traffic reaches the firewall | the TGW `spoke_rt` has a default route; the BGP session is up; `default route is in `pl-<customer>-out` (`get router info bgp neighbors <peer>` must not say "default not sent") |
 | Traffic arrives on `gre-east` but never leaves port1 | policy 1 and the route to port1 |
-| SYN leaves and SYN-ACK returns but the instance never connects | the reply path; this is the failure signature of the VRF design in [Why It Fails](../../6_why_not_vrfs/6_3_why_it_fails/) |
+| SYN leaves and SYN-ACK returns but the instance never connects | the reply path; check `skip-vrf-match` on policy 1. This is the failure signature of a missing setting, see [The Failure and the Fix](../../6_vrf_isolation/6_3_why_it_fails/) and the VRF steps in [Validation](../../5_validation/) |

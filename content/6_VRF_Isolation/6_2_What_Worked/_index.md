@@ -151,4 +151,10 @@ Routing table for VRF=10
   Known via "bgp" ...    * vrf 10 169.254.6.3 (recursive is directly connected, gre-east)
 ```
 
-Every route lookup now returned the right answer. The traffic still failed. See [Why It Fails](../6_3_why_it_fails/).
+Every route lookup now returned the right answer. The traffic still failed, and a setting on the firewall policy was needed to fix it.
+See [The Failure and the Fix](../6_3_why_it_fails/).
+
+{{% notice info %}}
+The static route numbers above (99, 98, 90, 91, 80, 81) are from the hand test. The bootstrap template uses its own numbers. See
+[Customer Isolation](../../3_solution_components/3_5_customer_isolation/) for the route table it builds.
+{{% /notice %}}

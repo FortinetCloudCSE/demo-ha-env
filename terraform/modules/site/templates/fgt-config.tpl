@@ -147,6 +147,7 @@ set remote-ip ${c.tgw_ip1} 255.255.255.248
 set allowaccess ping
 set mtu-override enable
 set mtu 1400
+set vrf ${c.vrf}
 next
 %{ endfor ~}
 end
@@ -179,6 +180,7 @@ set remote-ip ${c.peer_ip} 255.255.255.252
 set allowaccess ping
 set mtu-override enable
 set mtu 1350
+set vrf ${c.vrf}
 next
 %{ endfor ~}
 end
@@ -190,6 +192,36 @@ config router static
 edit ${20 + i}
 set dst ${c.remote_cidr}
 set device gre-${c.name}-x
+set vrf ${c.vrf}
+next
+%{ endfor ~}
+# each customer lives in its own VRF (east 10, west 20), so each VRF needs its own routes (after the gre interfaces exist):
+# - the GRE underlay: the TGW addresses through port2 and the remote tunnel address through the IPsec interface
+# - a default route out port1 for internet egress and the SSH VIPs
+# - and in VRF 0 (where port1 is) the way back to the customer's spokes through its GRE tunnel
+%{ for pi, c in connect_peers ~}
+%{ for ti, cidr in tgw_cidrs ~}
+edit ${30 + 10 * pi + ti}
+set dst ${cidr}
+set gateway ${port2_gateway}
+set device port2
+set vrf ${c.vrf}
+next
+%{ endfor ~}
+edit ${50 + pi}
+set dst ${intersite_tunnel_remote} 255.255.255.255
+set device ${tunnel_name}
+set vrf ${c.vrf}
+next
+edit ${60 + pi}
+set gateway ${port1_gateway}
+set device port1
+set vrf ${c.vrf}
+next
+edit ${70 + pi}
+set dst ${c.local_cidr}
+set device gre-${c.name}
+set vrf 0
 next
 %{ endfor ~}
 end
@@ -223,6 +255,8 @@ set ebgp-enforce-multihop enable
 set soft-reconfiguration enable
 set capability-default-originate enable
 set prefix-list-out pl-${c.name}-out
+set interface gre-${c.name}
+set update-source gre-${c.name}
 next
 edit ${c.tgw_ip2}
 set remote-as ${tgw_asn}
@@ -230,6 +264,8 @@ set ebgp-enforce-multihop enable
 set soft-reconfiguration enable
 set capability-default-originate enable
 set prefix-list-out pl-${c.name}-out
+set interface gre-${c.name}
+set update-source gre-${c.name}
 next
 %{ endfor ~}
 end
@@ -276,6 +312,7 @@ set action accept
 set schedule always
 set service ALL
 set nat enable
+set skip-vrf-match enable
 set logtraffic all
 next
 edit 2
@@ -288,6 +325,7 @@ set action accept
 set schedule always
 set service ALL
 set nat enable
+set skip-vrf-match enable
 set logtraffic all
 next
 edit 3

@@ -99,7 +99,7 @@ The last stanza of the bootstrap makes port4 `dedicated-to management` (below).
 - **No EIP, no admin access.** Only `fgfm` is allowed on the interface: no HTTPS, SSH or ping. The security group on the ENI
   allows TCP 541 from the management VPC CIDR only.
 - **VRF 1.** Port4 and its route live in VRF 1, separate from the data plane. The FortiGate generates and receives this traffic
-  itself, so no flow crosses between VRFs (the problem described in [Why Not VRFs](../../6_why_not_vrfs/)).
+  itself, so no flow crosses between VRFs (the case that needs `skip-vrf-match` for the customer traffic, see [VRF Isolation](../../6_vrf_isolation/)).
 - **A route is needed on the secondary.** FortiManager is in the AZ1 management subnet, so the secondary's port4 (AZ2 subnet)
   has no connected network to it. The static route covers both.
 - **FortiGuard.** No interface is selected for FortiGuard: port4 has no internet path, and the units validate their PAYG license
