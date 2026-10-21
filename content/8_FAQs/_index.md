@@ -8,7 +8,7 @@ weight: 80
 
 Each customer is in its own VRF, but internet egress and the SSH VIPs have to cross to port1 in the default VRF. Without the option
 the reply arrives in a different VRF from the one that created the session and is dropped with `no session matched`. It is set
-on the egress and VIP policies only. See [VRF Isolation](../6_vrf_isolation/).
+on the egress and VIP policies only. See [Cross-VRF Traffic](../6_vrf_isolation/6_3_cross_vrf_traffic/).
 
 ## Why PAYG and not BYOL or FortiFlex?
 

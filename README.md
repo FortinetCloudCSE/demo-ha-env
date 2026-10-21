@@ -54,9 +54,9 @@ This is demo code, not a production reference. See [Status and caveats](#status-
 | port4 | management VPC (multi-VPC ENI, no EIP, VRF 1, `dedicated-to management`): FortiManager (FGFM only) and FortiAnalyzer logging |
 
 There is no EC2 API VPC endpoint. The failover API calls leave through port3 and its EIP, and port3's EIP is **not** moved on
-failover: only the cluster EIP (on port1's primary IP) and the route targets are reassigned. Port4 has no EIP, so there is
-nothing on it for HA to move. (In an earlier design the management port was outside `config system ha` and carried the EIPs,
-and failover moved them.) Port4 allows only `fgfm`: no HTTPS, SSH or ping.
+failover: it is on the HA management interface, so it belongs to its unit. FortiOS moves the cluster EIP (on port1's primary IP)
+and the routes that point at the active unit to the new primary, as FGCP does, and an EIP on any other ENI would move with it.
+Port4 has no EIP, so there is nothing on it for HA to move. Port4 allows only `fgfm`: no HTTPS, SSH or ping.
 
 ### Addressing
 

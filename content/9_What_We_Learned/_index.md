@@ -7,7 +7,7 @@ weight: 90
 
 # What We Learned
 
-The management design went through four iterations before it settled. Each earlier one failed for a reason that is not obvious
+The management design went through four iterations before it settled. Each earlier one had to change for a reason that is not obvious
 from the documentation, so the reasons are recorded here. Everything below was observed on FortiOS 8.0.1 (build 0245); the
 page says where a cause was established and where it was only observed.
 
@@ -18,30 +18,26 @@ sits in a public subnet and has an EIP on each unit. **Port4** is an ordinary mu
 `dedicated-to management`, with **no EIP** and only `fgfm` allowed. It carries FortiManager and FortiAnalyzer traffic and nothing
 else. FortiGuard uses the defaults.
 
-## 1. An EIP on a management interface outside `config system ha` gets moved on failover
+## 1. An EIP on an ENI outside `config system ha` moves with the primary on failover
 
 **What we saw.** In the first versions of the design, port3 was the HA management interface with no public path, and a separate
 management ENI (port4, in the management VPC) carried an EIP for GUI and SSH. After a failover, and during rebuilds, the EIPs
 on the management ENIs moved between the units. At one point a secondary showed no management EIP at all while the other unit
-held two. The administrator's observation was "HA shouldn't move management EIPs."
+held two.
 
-**What the reference says.** The FGCP reference describes exactly one EIP movement: the *cluster* EIP, assigned to the primary IP
-of the data-plane port (port1), is reassigned to the new master, and routes that target the old master are updated. The IAM role
-exists to "reassign cluster EIPs assigned to primary IPs assigned to the data plane ENIs". The reference puts the unit's own EIP
-on the HA management interface, which it describes as the unit's independent path.
+**Why.** This is standard FGCP failover on AWS. FortiOS moves the EIPs to the new primary and updates the user-defined routes that
+point at the old primary's ENI. The cluster EIP on port1 moves this way, and so does an EIP on any other ENI that is not the HA
+management interface. The first layout put the per-unit EIP on port4, which sits outside `config system ha`, so the EIP followed the
+primary. That was the expected behavior, not a fault.
 
-**What fixed it.** Moving the per-unit EIP onto the interface defined in `config system ha` (`ha-mgmt-interface`, port3). Failover
-no longer moves it. Port4 has no EIP at all, so there is nothing on it to move.
+The one EIP that does not move is the one on the HA management interface (`ha-mgmt-interface`, port3): it belongs to its unit. The
+FGCP reference puts each unit's own EIP there, as the unit's independent path.
 
-{{% notice warning %}}
-**The mechanism was never established.** We did not find out *why* FortiOS moved the EIPs on a management ENI that was outside
-the HA configuration. The explanation that fits the evidence is that FortiOS only treats an interface as a unit-owned management
-port when it is named in `config system ha`. The IAM policy that FortiOS runs under allows `ec2:AssociateAddress` and
-`ec2:DisassociateAddress` on every resource, so scoping it down is a possible hardening step; it was not tried.
-{{% /notice %}}
+**What fixed it.** Moving the per-unit EIP onto the interface defined in `config system ha` (port3). Failover no longer moves it. Port4
+has no EIP at all, so there is nothing on it to move.
 
-**Rule of thumb.** If a FortiGate needs a per-unit EIP for administration, put it on the HA management interface. Do not put it on
-a separate management ENI.
+**Rule of thumb.** If a FortiGate needs a per-unit EIP for administration that stays with the unit, put it on the HA management
+interface. An EIP on any other ENI moves to the new primary on failover, together with the routes that point at it.
 
 ## 2. The HA management interface cannot be chosen as the source interface for FortiGuard and friends
 
@@ -89,7 +85,7 @@ Each iteration, and what ended it:
 
 | # | Layout | What went wrong |
 |---|---|---|
-| 1 | port3 = HA management with no public path; port4 in VRF 1, `dedicated-to management`, with an EIP | The management EIPs moved around on failover (section 1). The secondary's heartbeat left port1 and split the cluster. |
+| 1 | port3 = HA management with no public path; port4 in VRF 1, `dedicated-to management`, with an EIP | The per-unit EIP on port4, outside `config system ha`, moved to the new primary on failover, as FGCP does (section 1), so it was not a per-unit address. The secondary's heartbeat left port1 and split the cluster. |
 | 2 | port4 = HA management interface, with an EIP | FortiManager, FortiAnalyzer and FortiGuard could not use it as a source interface (section 2). Registration failed. |
 | 3 | considered: VPC peering or a TGW attachment from the management VPC to each inspection VPC | Would work, with a route out port2. Not built: it adds routing, and it drops the requirement that every FortiGate has a dedicated management interface in the management VPC. |
 | 4 | **port3 = HA management with an EIP (the FGCP reference); port4 = `dedicated-to management`, VRF 1, no EIP, `fgfm` only** | The current design. |
@@ -116,13 +112,13 @@ Each iteration, and what ended it:
 
 ## 4. Route leaking between VRFs is not session leaking
 
-The first customer-isolation design put east in VRF 10 and west in VRF 20. The first test failed, the VRFs were dropped, and a
-firewall policy option then fixed it. The full test, with the debug output, is in [VRF Isolation](../6_vrf_isolation/). The short version:
+Customer isolation puts east in VRF 10 and west in VRF 20. Getting traffic to cross between a customer VRF and port1 took more than
+routing. The full design, with the debug output, is in [VRF Isolation](../6_vrf_isolation/). The short version:
 
 **What worked.** A VRF on a GRE interface (`set vrf 10`), and a BGP neighbor inside that VRF. Each VRF learned only its own
 customer's spoke prefix, so the routing tables separated cleanly.
 
-**What broke.** Two flows must cross between a customer VRF and port1, which stays in the default VRF: internet egress from the
+**What does not work on routes alone.** Two flows must cross between a customer VRF and port1, which stays in the default VRF: internet egress from the
 spokes, and the SSH VIPs. A static route can name a VRF, with an exit interface in another VRF, and those leaked routes installed
 cleanly (`S D` in the routing table). Every route lookup then returned the right answer. The first packet of each flow went
 through. The reply was dropped:

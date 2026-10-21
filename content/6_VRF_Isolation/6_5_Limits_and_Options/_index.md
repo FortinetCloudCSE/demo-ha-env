@@ -1,8 +1,8 @@
 ---
-title: "Other Options"
+title: "Limits and Options"
 chapter: false
-menuTitle: "Other Options"
-weight: 64
+menuTitle: "Limits and Options"
+weight: 65
 ---
 
 ## What the current design does
@@ -10,7 +10,7 @@ weight: 64
 Each customer has its own VRF, its own tunnels, its own BGP prefix-list, its own TGW route tables and its own firewall policy.
 Internet egress and the SSH VIPs work because `skip-vrf-match` lets the reply find its session across the VRF boundary. See
 [Customer Isolation](../../3_solution_components/3_5_customer_isolation/) for the configuration and
-[The Failure and the Fix](../6_3_why_it_fails/) for why the setting is needed.
+[Cross-VRF Traffic](../6_3_cross_vrf_traffic/) for why the setting is needed.
 
 ## What it does not give you
 

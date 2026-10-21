@@ -59,10 +59,10 @@ Only the primary's port1 has the cluster EIP. The IPsec tunnel terminates on it,
 re-associates the EIP using EC2 API calls. Terraform ignores drift on that association (`lifecycle.ignore_changes`).
 
 {{% notice info %}}
-**Port3's EIP stays with its unit.** Per the FGCP reference, failover reassigns the cluster EIP on the **data-plane** ENI's
-primary IP (port1) and the route targets that point at the old master. The EIP on the HA-management port (port3, defined in
-`config system ha` as `ha-mgmt-interface`) is each unit's own and does not move. When the management ENI was created *outside* the
-HA configuration and carried EIPs (an earlier design), failover moved them around. Port4 now has no EIP.
+**Port3's EIP stays with its unit.** FGCP failover moves EIPs, and the routes that point at the old primary, to the new primary:
+the cluster EIP on the **data-plane** ENI's primary IP (port1), and an EIP on any other ENI outside `config system ha`. The EIP on the
+HA-management port (port3, defined in `config system ha` as `ha-mgmt-interface`) is each unit's own and does not move. Port4 has no
+EIP, so nothing on it moves.
 {{% /notice %}}
 
 {{% notice info %}}

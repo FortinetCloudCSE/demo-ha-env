@@ -154,9 +154,10 @@ Found on a unit: `prefix-list-out` filters the default-originate route too ("def
 
 Final layout after several iterations; the history matters because each earlier variant failed for a reason.
 - **port3 is the HA-mgmt interface** (`config system ha` / `ha-mgmt-interface`, gateway = the unit's own subnet gateway), also
-  `hbdev`. Public ha-mgmt subnet + EIP per unit. The FGCP reference says failover moves only the cluster EIP (on port1's
-  primary IP) and route targets; the EIP on the HA mgmt port stays with the unit. When the management ENI (then port4) was
-  outside `config system ha` and carried the EIPs, failover moved them.
+  `hbdev`. Public ha-mgmt subnet + EIP per unit. FGCP failover moves EIPs and the routes that point at the active
+  unit's ENI to the new primary (the cluster EIP on port1, and an EIP on any ENI outside `config system ha`). The EIP on the HA mgmt
+  port stays with the unit. An EIP on port4 (outside `config system ha`) would move on failover: that is standard FGCP behavior, not a
+  fault, and the first layout simply put the per-unit EIP there. So port4 has none.
 - **port4 cannot be the HA-mgmt interface**: FortiOS then refuses it as the source interface for FortiGuard / FortiManager /
   FortiAnalyzer (`set interface port4` -> `entry not found in datasource`), the stanza is dropped (the whole FortiAnalyzer
   block was lost) and traffic to 10.99.0.0/24 follows the port1 default route.
